@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.staticfiles",
     "graphene_django",
     'django.contrib.admin',
     'django.contrib.auth',
