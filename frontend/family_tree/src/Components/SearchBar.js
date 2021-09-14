@@ -1,27 +1,26 @@
 import React, { useState } from "react";
-import "./SearchBar.css";
+import "../Styles/SearchBar.css";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close"
 
-function SearchBar({ placeholder, data }) {
+function SearchBar({ placeholder, Student_Data }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
-    setWordEntered(searchWord);
-    const newFilter = data.filter((value) => {
-      return value.title.toLowerCase().includes(searchWord.toLowerCase());
-    });
-
+    setWordEntered(searchWord);    
     if (searchWord.length < 3) {
       setFilteredData([]);
     } else {
-      setFilteredData(newFilter);
+      const FilteredResults = Student_Data.filter((value) => {
+        return value.student.name.toLowerCase().includes(searchWord.toLowerCase()) + value.student.id.toLowerCase().includes(searchWord.toLowerCase());
+      });   
+      setFilteredData(FilteredResults);
     }
   };
 
-  const clearInput = () => {
+  const clearState = () => {
     setFilteredData([]);
     setWordEntered("");
   };
@@ -36,20 +35,20 @@ function SearchBar({ placeholder, data }) {
           onChange={handleFilter}
         />
         <div className="searchIcon">
-          {filteredData.length === 0 ? (
+          {wordEntered.length === 0 ? (
             <SearchIcon />
           ) : (
-            <CloseIcon id="clearBtn" onClick={clearInput} />
+            <CloseIcon id="clearBtn" onClick={clearState} />
           )}
         </div>
       </div>
-      {filteredData.length != 0 && (
+      {filteredData.length !== 0 && (
         <div className="dataResult">
-          {filteredData.slice(0, 5).map((value, key) => {
+          {filteredData.slice(0, 5).map((value) => {
             return (
-              <a className="dataItem" href={value.link} target="_blank">
-                <p>{value.title} </p>
-              </a>
+              // <a className="dataItem"  href={value.link} rel="noreferrer" target="_blank">
+                <p className="dataItem">{value.student.name + " (" + value.student.id + ")"} </p>
+              // </a>
             );
           })}
         </div>
