@@ -3,20 +3,20 @@ import "../Styles/SearchBar.css";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close"
 
-function SearchBar({ placeholder, Student_Data }) {
+function SearchBar({ placeholder, studentData }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
-    setWordEntered(searchWord);    
+    setWordEntered(searchWord);
     if (searchWord.length < 3) {
       setFilteredData([]);
     } else {
-      const FilteredResults = Student_Data.filter((value) => {
-        return value.student.name.toLowerCase().includes(searchWord.toLowerCase()) + value.student.id.toLowerCase().includes(searchWord.toLowerCase());
-      });   
-      setFilteredData(FilteredResults);
+      const filteredResults = studentData.filter((query) => {
+        return query.student.name.toLowerCase().includes(searchWord.toLowerCase()) + query.student.id.toLowerCase().includes(searchWord.toLowerCase());
+      });
+      setFilteredData(filteredResults);
     }
   };
 
@@ -46,9 +46,7 @@ function SearchBar({ placeholder, Student_Data }) {
         <div className="dataResult">
           {filteredData.slice(0, 5).map((value) => {
             return (
-              // <a className="dataItem"  href={value.link} rel="noreferrer" target="_blank">
-                <p className="dataItem">{value.student.name + " (" + value.student.id + ")"} </p>
-              // </a>
+              <p className="dataItem">{`${value.student.name} (${value.student.id})`} </p>
             );
           })}
         </div>
