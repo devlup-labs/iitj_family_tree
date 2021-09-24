@@ -1,27 +1,26 @@
 import React, { useState } from "react";
-import "./SearchBar.css";
+import "../Styles/SearchBar.css";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close"
 
-function SearchBar({ placeholder, data }) {
+function SearchBar({ placeholder, studentData }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
-    const newFilter = data.filter((value) => {
-      return value.title.toLowerCase().includes(searchWord.toLowerCase());
-    });
-
     if (searchWord.length < 3) {
       setFilteredData([]);
     } else {
-      setFilteredData(newFilter);
+      const filteredResults = studentData.filter((query) => {
+        return query.student.name.toLowerCase().includes(searchWord.toLowerCase()) + query.student.id.toLowerCase().includes(searchWord.toLowerCase());
+      });
+      setFilteredData(filteredResults);
     }
   };
 
-  const clearInput = () => {
+  const clearState = () => {
     setFilteredData([]);
     setWordEntered("");
   };
@@ -36,20 +35,18 @@ function SearchBar({ placeholder, data }) {
           onChange={handleFilter}
         />
         <div className="searchIcon">
-          {filteredData.length === 0 ? (
+          {wordEntered.length === 0 ? (
             <SearchIcon />
           ) : (
-            <CloseIcon id="clearBtn" onClick={clearInput} />
+            <CloseIcon id="clearBtn" onClick={clearState} />
           )}
         </div>
       </div>
-      {filteredData.length != 0 && (
+      {filteredData.length !== 0 && (
         <div className="dataResult">
-          {filteredData.slice(0, 5).map((value, key) => {
+          {filteredData.slice(0, 5).map((value) => {
             return (
-              <a className="dataItem" href={value.link} target="_blank">
-                <p>{value.title} </p>
-              </a>
+              <p className="dataItem">{`${value.student.name} (${value.student.id})`} </p>
             );
           })}
         </div>
