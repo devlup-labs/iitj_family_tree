@@ -44,14 +44,17 @@ const useStyles = makeStyles((theme) => ({
 
 function PCard(props) {
   const classes = useStyles();
+  const [display, setDisplay] = React.useState("");
 
   return (
     <React.Fragment>
-      <Card className={classes.root} variant="outlined">
+      <Card className={classes.root} variant="outlined" style={{display:display}}>
         <Box sx={{ display: "flex", justifyContent: "right" }}>
-          <IconButton aria-label="close">
+         <CardActions>
+          <IconButton aria-label="close" onClick={()=>setDisplay("none")} >
             <CloseOutlinedIcon />
           </IconButton>
+          </CardActions>
         </Box>
         <Box
           sx={{
