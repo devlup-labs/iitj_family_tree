@@ -37,21 +37,21 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       opacity: "1",
       transform: "translate(0,-5px)",
-      background: "rgba(255,255,255,0.5)"
     }
   }
 }));
 
 function PCard(props) {
   const classes = useStyles();
-  const [display, setDisplay] = React.useState("");
-
+  const [isVisible, setisVisible] = React.useState(props.display?true:false);
+  const toggle = () => setisVisible(!isVisible);
   return (
     <React.Fragment>
-      <Card className={classes.root} variant="outlined" style={{display:display}}>
+      { isVisible && (
+      <Card className={classes.root} variant="outlined" >
         <Box sx={{ display: "flex", justifyContent: "right" }}>
          <CardActions>
-          <IconButton aria-label="close" onClick={()=>setDisplay("none")} >
+          <IconButton aria-label="close" onClick={toggle} >
             <CloseOutlinedIcon />
           </IconButton>
           </CardActions>
@@ -132,70 +132,78 @@ function PCard(props) {
         >
           <CardActions>
             {props.email && (
-              <Link href={`mailto:${props.email}`}>
-                <IconButton className={classes.socialMediaButton}>
+                <IconButton 
+                  className={classes.socialMediaButton} 
+                  component = {Link}
+                  href={`mailto:${props.email}`}
+                >
                   <MailIcon color="primary" />
                 </IconButton>
-              </Link>
             )}
 
             {props.linkedIn && (
-              <Link href={props.linkedIn} target="_blank">
-                <IconButton
-                  aria-label="linkedin"
-                  className={classes.socialMediaButton}
-                >
-                  <LinkedInIcon color="primary" />
-                </IconButton>
-              </Link>
-            )}
+              <IconButton
+                aria-label="linkedin"
+                className={classes.socialMediaButton}
+                component = {Link}
+                target="_blank"
+                href={props.linkedIn}
+              >
+                <LinkedInIcon color="primary" />
+              </IconButton>
+          )}
 
             {props.socialMedia && props.socialMedia.insta && (
-              <Link href={props.socialMedia.insta} target="_blank">
                 <IconButton
                   aria-label="instagram"
                   className={classes.socialMediaButton}
+                  component = {Link}
+                  target="_blank"
+                  href={props.linkedIn}
                 >
                   <InstagramIcon color="primary" />
                 </IconButton>
-              </Link>
             )}
 
             {props.socialMedia && props.socialMedia.github && (
-              <Link href={props.socialMedia.github} target="_blank">
                 <IconButton
                   aria-label="github"
                   className={classes.socialMediaButton}
+                  component = {Link}
+                  target="_blank"
+                  href={props.linkedIn}
                 >
                   <GitHubIcon color="primary" />
                 </IconButton>
-              </Link>
             )}
 
             {props.socialMedia && props.socialMedia.facebook && (
-              <Link href={props.socialMedia.facebook} target="_blank">
                 <IconButton
                   aria-label="facebook"
                   className={classes.socialMediaButton}
+                  component = {Link}
+                  target="_blank"
+                  href={props.linkedIn}
                 >
                   <FacebookIcon color="primary" />
                 </IconButton>
-              </Link>
             )}
 
             {props.socialMedia && props.socialMedia.twitter && (
-              <Link href={props.socialMedia.twitter} target="_blank">
                 <IconButton
                   aria-label="twitter"
                   className={classes.socialMediaButton}
+                  component = {Link}
+                  target="_blank"
+                  href={props.socialMedia.twitter}
                 >
                   <TwitterIcon color="primary" />
                 </IconButton>
-              </Link>
             )}
           </CardActions>
         </Box>
       </Card>
+       )}
     </React.Fragment>
   );
 }
