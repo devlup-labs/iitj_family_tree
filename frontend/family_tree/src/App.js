@@ -37,6 +37,7 @@ function App() {
       hometown={x.student.hometown}
       coCurriculars={x.student.coCurriculars}
       socialMedia={x.student.socialMedia}
+      display= {true}
     />
 
     </div>
