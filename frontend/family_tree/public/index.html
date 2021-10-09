@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,12 +22,492 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Family Tree IITJ</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
+  <title>Family Tree IITJ</title>
+  <style>
+    .node {
+      cursor: pointer;
+    }
+
+    .node text {
+      font: 9px sans-serif;
+    }
+
+    .link {
+      fill: none;
+      stroke: black;
+      stroke-width: 1.5px;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <div id="tree"></div>
+
+  <script>
+
+    width = window.innerWidth,
+    height = window.innerHeight;
+
+    var data = [
+      {
+        "student": {
+          "id": "B18CSE053",
+          "branch": "CSE",
+          "name": "Root",
+          "year": "2018",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "Harayana",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "B17ME06"
+      },
+      {
+        "student": {
+          "id": "B19BB048",
+          "branch": "BB",
+          "name": "S.G.1",
+          "year": "2019",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "Jammu",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Root"
+      },
+      {
+        "student": {
+          "id": "B19BB048",
+          "branch": "BB",
+          "name": "Bhai1",
+          "year": "2019",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "Jammu",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Root"
+      },
+      {
+        "student": {
+          "id": "B19BB048",
+          "branch": "BB",
+          "name": "Tushar Sharma",
+          "year": "2019",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "Jammu",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Root"
+      },
+      {
+        "student": {
+          "id": "B19BB048",
+          "branch": "BB",
+          "name": "Bhai2",
+          "year": "2019",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "Jammu",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Root"
+      },
+      {
+        "student": {
+          "id": "B19BB048",
+          "branch": "BB",
+          "name": "Bhai3",
+          "year": "2019",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "Jammu",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Root"
+      },
+      {
+        "student": {
+          "id": "B19BB048",
+          "branch": "BB",
+          "name": "Bhai4",
+          "year": "2019",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "Jammu",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Root"
+      },
+      {
+        "student": {
+          "id": "B20CS090",
+          "branch": "CSE",
+          "name": "Dev Goel",
+          "year": "2020",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Tushar Sharma"
+      },
+      {
+        "student": {
+          "id": "B20CS053",
+          "branch": "CSE",
+          "name": "Ravi Ramavat",
+          "year": "2020",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Tushar Sharma"
+      },
+      {
+        "student": {
+          "id": "B20CS011",
+          "branch": "CSE",
+          "name": "Debdut Saini",
+          "year": "2020",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "S.G.1"
+      },
+      {
+        "student": {
+          "id": "B20CS012",
+          "branch": "CSE",
+          "name": "Devansh Menaria",
+          "year": "2020",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "S.G.1"
+      },
+      {
+        "student": {
+          "id": "B20AI054",
+          "branch": "AIDE",
+          "name": "Akshat Jain",
+          "year": "2020",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Tushar Sharma"
+      },
+      {
+        "student": {
+          "id": "B20EE0XX",
+          "branch": "EE",
+          "name": "Harsh Meena",
+          "year": "2020",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "S.G.1"
+      },
+      {
+        "student": {
+          "id": "B20EE016",
+          "branch": "EE",
+          "name": "Dhruv",
+          "year": "2020",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Tushar Sharma"
+      },
+      {
+        "student": {
+          "id": "B20EEE017",
+          "branch": "EE",
+          "name": "Dhruv Shah",
+          "year": "2020",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "S.G.1"
+      },
+      {
+        "student": {
+          "id": "B20EE021",
+          "branch": "EE",
+          "name": "Haardik Ravat",
+          "year": "2020",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "S.G.1"
+      },
+      {
+        "student": {
+          "id": "B20EE059",
+          "branch": "EE",
+          "name": "Sarvesh",
+          "year": "2020",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Tushar Sharma"
+      },
+      {
+        "student": {
+          "id": "B20CS003",
+          "branch": "CSE",
+          "name": "Aman Mithoriya",
+          "year": "2020",
+          "email": "dummy@gmail.com",
+          "picture": "url",
+          "linkedIn": "url",
+          "hometown": "",
+          "coCurriculars": [],
+          "socialMedia": { "insta": "link" }
+        },
+        "parent": "Tushar Sharma"
+      },
+    ];
+
+    var dataMap = data.reduce(function (map, node) {
+      map[node.student.name] = node;
+      return map;
+    }, {});
+
+    var treeData = [];
+    data.forEach(function (node) {
+      var parent = dataMap[node.parent];
+      if (parent) {
+        (parent.children || (parent.children = []))
+          .push(node);
+      } else {
+        treeData.push(node);
+      }
+    });
+
+    var i = 0,
+      duration = 750,
+      rectW = 60,
+      rectH = 30;
+
+    var tree = d3.layout.tree().nodeSize([70, 40]);
+    var diagonal = d3.svg.diagonal()
+      .projection(function (d) {
+        return [d.x + rectW / 2, d.y + rectH / 2];
+      });
+
+    var svg = d3.select("#tree").append("svg").attr("width", width).attr("height", height)
+      .call(zm = d3.behavior.zoom().scaleExtent([1, 3]).on("zoom", redraw)).append("g")
+      .attr("transform", "translate(" + 350 + "," + 20 + ")");
+
+    zm.translate([350, 20]);
+
+    root = treeData[0];
+    root.x0 = 0;
+    root.y0 = height / 2;
+
+    function collapse(d) {
+      if (d.children) {
+        d._children = d.children;
+        d._children.forEach(collapse);
+        d.children = null;
+      }
+    }
+
+    root.children.forEach(collapse);
+    update(root);
+
+    d3.select("#tree").style("height", height);
+
+    function update(source) {
+      var nodes = tree.nodes(root).reverse(),
+        links = tree.links(nodes);
+
+      nodes.forEach(function (d) {
+        d.y = d.depth * 100;
+      });
+
+      var node = svg.selectAll("g.node")
+        .data(nodes, function (d) {
+          return d.id || (d.id = ++i);
+        });
+
+      var nodeEnter = node.enter().append("g")
+        .attr("class", "node")
+        .attr("transform", function (d) {
+          return "translate(" + source.x0 + "," + source.y0 + ")";
+        })
+        .on("click", click);
+
+      nodeEnter.append("rect")
+        .attr("width", rectW)
+        .attr("height", rectH)
+        .attr("stroke", "black")
+        .attr("stroke-width", 1)
+        .style("fill", function (d) {
+          return d._children ? "lightsteelblue" : "#fff";
+        });
+
+      nodeEnter.append("text")
+        .attr("x", rectW / 2)
+        .attr("y", rectH / 2)
+        .attr("dy", ".35em")
+        .attr("text-anchor", "middle")
+        .text(function (d) {
+          return d.student.name;
+        });
+
+      var nodeUpdate = node.transition()
+        .duration(duration)
+        .attr("transform", function (d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        });
+
+      nodeUpdate.select("rect")
+        .attr("width", rectW)
+        .attr("height", rectH)
+        .attr("stroke", "black")
+        .attr("stroke-width", 1)
+        .style("fill", function (d) {
+          return d._children ? "lightsteelblue" : "#fff";
+        });
+
+      nodeUpdate.select("text")
+        .style("fill-opacity", 1);
+
+      var nodeExit = node.exit().transition()
+        .duration(duration)
+        .attr("transform", function (d) {
+          return "translate(" + source.x + "," + source.y + ")";
+        })
+        .remove();
+
+      nodeExit.select("rect")
+        .attr("width", rectW)
+        .attr("height", rectH)
+        .attr("stroke", "black")
+        .attr("stroke-width", 1);
+
+      nodeExit.select("text");
+
+      var link = svg.selectAll("path.link")
+        .data(links, function (d) {
+          return d.target.id;
+        });
+
+      link.enter().insert("path", "g")
+        .attr("class", "link")
+        .attr("x", rectW / 2)
+        .attr("y", rectH / 2)
+        .attr("d", function (d) {
+          var o = {
+            x: source.x0,
+            y: source.y0
+          };
+          return diagonal({
+            source: o,
+            target: o
+          });
+        });
+
+      link.transition()
+        .duration(duration)
+        .attr("d", diagonal);
+
+      link.exit().transition()
+        .duration(duration)
+        .attr("d", function (d) {
+          var o = {
+            x: source.x,
+            y: source.y
+          };
+          return diagonal({
+            source: o,
+            target: o
+          });
+        })
+        .remove();
+
+      nodes.forEach(function (d) {
+        d.x0 = d.x;
+        d.y0 = d.y;
+      });
+    }
+
+    function click(d) {
+      if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
+      }
+      update(d);
+    }
+
+    function redraw() {
+      svg.attr("transform",
+        "translate(" + d3.event.translate + ")"
+        + " scale(" + d3.event.scale + ")");
+    }
+
+  </script>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -39,5 +517,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+</body>
 </html>
