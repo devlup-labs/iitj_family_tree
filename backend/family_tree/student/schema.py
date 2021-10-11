@@ -11,4 +11,7 @@ class StudentType(DjangoObjectType):
 class Query(graphene.ObjectType):
     students=graphene.List(StudentType)
 
+    def resolve_students(root,info):
+        return Student.objects.all()
+
 schema=graphene.Schema(query=Query)
