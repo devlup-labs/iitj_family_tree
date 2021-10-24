@@ -8,7 +8,7 @@ class Student(models.Model):
     picture= models.URLField(max_length=200)
     homeTown= models.CharField(max_length=200)
     extraCurriculars= models.CharField(max_length=400)
-    socialMedia= models.ForeignKey('SocialMedia')
+    socialMedia= models.ForeignKey('SocialMedia', on_delete=models.CASCADE, default=None)
     linkedIn= models.URLField(max_length=200)
     email= models.EmailField(max_length=254)
     parentId= models.CharField(max_length=400)
