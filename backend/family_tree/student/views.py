@@ -10,8 +10,6 @@ def index(request):
 
 def upload(request):
     if request.method == 'POST':
-        Student.objects.all().delete()
-        SocialMedia.objects.all().delete()
         file = request.FILES['files']
         path = file.file
         dataFrame = pd.read_excel(path)
@@ -20,8 +18,6 @@ def upload(request):
                 facebook=line[10],
                 instagram=line[11]
             )
-            ssoID = socialMediaObj.id
-            print(ssoID)
             Student.objects.create(
                 roll_no=line[0],
                 name=line[1],
