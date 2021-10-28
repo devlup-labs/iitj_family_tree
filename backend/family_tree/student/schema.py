@@ -8,10 +8,21 @@ class StudentType(DjangoObjectType):
         fields= ("id","name","branch","year","picture","homeTown","extraCurriculars","socialMedia", "linkedIn","email","parentId","roll_no")
         filter_fields=["id","name","branch","year","email","parentId","roll_no"]
 
+
 class Query(graphene.ObjectType):
     students=graphene.List(StudentType)
-
+    student_path= graphene.List(StudentType, roll=graphene.String())
     def resolve_students(root,info):
         return Student.objects.all()
+    def resolve_student_path(root, info, roll):
+        pathObjects=[]
+        while(Student.objects.filter(roll_no=roll)[0].parentId!="root"):
+            pathObjects.append(Student.objects.filter(roll_no=roll)[0])
+            roll= Student.objects.filter(roll_no=roll)[0].parentId
+        pathObjects.append(Student.objects.filter(roll_no=roll)[0])
+        return pathObjects
+    
+
+        
 
 schema=graphene.Schema(query=Query)
