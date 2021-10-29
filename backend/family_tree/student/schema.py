@@ -12,3 +12,15 @@ class Query(graphene.ObjectType):
     students=graphene.List(StudentType)
 
 schema=graphene.Schema(query=Query)
+
+def dumyFunc(year):
+    path=[]
+    for i in range(1,year-2011):
+        path.append(i)
+    return path
+def resolveBatch(currentYear,temp):
+    batch=[]
+    while(Student.objects.filter(roll_no=temp)[0].year== currentYear):
+        batch.append(dumyFunc(currentYear))
+        temp= Student.objects.filter(roll_no=temp)[0]+1
+    return batch
