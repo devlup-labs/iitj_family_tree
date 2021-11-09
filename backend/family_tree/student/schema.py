@@ -19,9 +19,9 @@ class Query(graphene.ObjectType):
     def resolve_student_path(root, info, roll):
         pathObjects=[]
         while(Student.objects.get(roll_no=roll).parentId!="root"):
-            k=Student.objects.get(roll_no=roll)
-            pathObjects.append(k)
-            roll= k.parentId
+            student=Student.objects.get(roll_no=roll)
+            pathObjects.append(student)
+            roll= student.parentId
         pathObjects.append(Student.objects.get(roll_no=roll))
         return pathObjects
 
