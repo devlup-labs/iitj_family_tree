@@ -10,14 +10,13 @@ class StudentType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     students=graphene.List(StudentType)
-    children=graphene.List(StudentType, id_of_parent=graphene.String())
+    children=graphene.List(StudentType, parent_id=graphene.String())
 
     def resolve_students(root,info):
         return Student.objects.all()
 
-    def resolve_children(id_of_parent):
-        children_qset = Student.objects.filter(parentId=id_of_parent)
-        return children_qset
+    def resolve_children(parent_id):
+        return Student.objects.filter(parentId=parent_id)
 
 
 schema=graphene.Schema(query=Query)
