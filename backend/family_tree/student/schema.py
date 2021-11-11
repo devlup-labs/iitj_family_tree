@@ -25,5 +25,6 @@ class Query(graphene.ObjectType):
         pathObjects.append(Student.objects.get(roll_no=roll))
         return pathObjects
 
-
 schema=graphene.Schema(query=Query)
+
+    
