@@ -5,6 +5,7 @@ import SearchBar from "./Components/SearchBar";
 import StudentData from "./Data.json";
 import PCard from "./Components/ProfileCard.js";
 import { ThemeProvider, createTheme } from "@material-ui/core";
+import D3Tree from "./Components/Tree";
 
 function App() {
 
@@ -26,20 +27,21 @@ function App() {
         <Help />
       </div>
       
-      <PCard
-      id={x.student.id}
-      branch={x.student.branch}
-      name={x.student.name}
-      year={x.student.year}
-      email={x.student.email}
-      picture={x.student.picture}
-      linkedIn={x.student.linkedIn}
-      hometown={x.student.hometown}
-      coCurriculars={x.student.coCurriculars}
-      socialMedia={x.student.socialMedia}
-      display= {true}
-    />
+      <D3Tree />
 
+      <PCard
+        id={x.student.id}
+        branch={x.student.branch}
+        name={x.student.name}
+        year={x.student.year}
+        email={x.student.email}
+        picture={x.student.picture}
+        linkedIn={x.student.linkedIn}
+        hometown={x.student.hometown}
+        coCurriculars={x.student.coCurriculars}
+        socialMedia={x.student.socialMedia}
+        display= {true}
+      />
     </div>
     </ThemeProvider>
   );
