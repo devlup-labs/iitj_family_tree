@@ -15,13 +15,11 @@ function D3Tree(){
                     .append("g")
                     .attr("transform", "translate(" + width/2 + "," + height/3 + ")");
     var data = StudentData;    
-    console.log("data ",data) ;
 
     var treemap = d3.tree().size([height,width]).nodeSize([120, 40]);
 
     var stratify = d3.stratify().id(d=>d.student.name).parentId(d=>d.parent) ;
     var root = stratify(data);
-    console.log("root ",root) ;
 
     var i = 0;
     var duration = 750;
@@ -44,9 +42,6 @@ function D3Tree(){
 
       var nodes = treeData.descendants(),
           links = treeData.descendants().slice(1);
-
-      console.log("nodes ",nodes);
-      console.log("links ",links);
 
       nodes.forEach(function(d){ 
         d.y = d.depth * 180 ;
