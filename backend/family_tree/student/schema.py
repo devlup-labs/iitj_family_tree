@@ -25,11 +25,11 @@ class Query(graphene.ObjectType):
         pathObjects.append(Student.objects.get(roll_no=roll))
         return pathObjects
     def resolve_batch(root,info,roll):
-        currentNode= Student.objects.get(roll_no=roll)
-        year_of_node= currentNode.year
-        currentBatch= Student.objects.filter(year=year_of_node)
+        current_node= Student.objects.get(roll_no=roll)
+        year_of_node= current_node.year
+        current_batch= Student.objects.filter(year=year_of_node)
         tree_for_batch=[]
-        for i in currentBatch:
+        for i in current_batch:
             tree_for_batch.append(Query.resolve_student_path(root,info,i.roll_no))
         return tree_for_batch
 schema=graphene.Schema(query=Query)
