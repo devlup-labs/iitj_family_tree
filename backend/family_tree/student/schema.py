@@ -12,6 +12,7 @@ class StudentType(DjangoObjectType):
 class Query(graphene.ObjectType):
     students=graphene.List(StudentType)
     student_path= graphene.List(StudentType, roll=graphene.String())
+    student_sibling= graphene.List(StudentType, roll=graphene.String())
 
     def resolve_students(root,info):
         return Student.objects.all()
@@ -24,6 +25,10 @@ class Query(graphene.ObjectType):
             roll= student.parentId
         pathObjects.append(Student.objects.get(roll_no=roll))
         return pathObjects
+    
+    def resolve_student_sibling(root,info, roll):
+        student=Student.objects.get(roll_no=roll)
+        return Student.objects.filter(parentId=student.parentId).exclude(roll_no=roll)
 
 schema=graphene.Schema(query=Query)
 
