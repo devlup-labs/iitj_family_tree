@@ -47,8 +47,8 @@ class Query(graphene.ObjectType):
         year_of_node= current_node.year
         current_batch= Student.objects.filter(year=year_of_node)
         tree_for_batch=[]
-        for i in current_batch:
-            tree_for_batch.append(Query.resolve_student_path(root,info,i.roll_no))
+        for person in current_batch:
+            tree_for_batch.append(Query.resolve_student_path(root,info,person.roll_no))
         return tree_for_batch
 
 
