@@ -14,12 +14,9 @@ class Query(graphene.ObjectType):
     students=graphene.List(StudentType)
     children=graphene.List(StudentType, parent_id=graphene.String())
     student_path= graphene.List(StudentType, roll=graphene.String())
-
     student_sibling= graphene.List(StudentType, roll=graphene.String())
     student_search= graphene.List(StudentType, search_query=graphene.String())
-
-
-    tree_for_batch= graphene.List(StudentType,roll=graphene.String())
+    student_batch= graphene.List(StudentType, roll=graphene.String())
 
     def resolve_students(root,info):
         return Student.objects.all()
@@ -35,14 +32,13 @@ class Query(graphene.ObjectType):
             roll= student.parentId
         pathObjects.append(Student.objects.get(roll_no=roll))
         return pathObjects
-
     
     def resolve_student_sibling(root,info, roll):
         student=Student.objects.get(roll_no=roll)
         return Student.objects.filter(parentId=student.parentId).exclude(roll_no=roll)
 
 
-    def resolve_tree_for_batch(root,info,roll):
+    def resolve_student_batch(root,info,roll):
         current_node= Student.objects.get(roll_no=roll)
         year_of_node= current_node.year
         current_batch= Student.objects.filter(year=year_of_node)
