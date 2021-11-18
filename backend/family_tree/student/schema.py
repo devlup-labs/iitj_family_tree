@@ -11,12 +11,16 @@ class StudentType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     students=graphene.List(StudentType)
+    children=graphene.List(StudentType, parent_id=graphene.String())
     student_path= graphene.List(StudentType, roll=graphene.String())
     student_sibling= graphene.List(StudentType, roll=graphene.String())
 
     def resolve_students(root,info):
         return Student.objects.all()
 
+    def resolve_children(parent_id):
+        return Student.objects.filter(parentId=parent_id)
+    
     def resolve_student_path(root, info, roll):
         pathObjects=[]
         while(Student.objects.get(roll_no=roll).parentId!="root"):
@@ -31,5 +35,3 @@ class Query(graphene.ObjectType):
         return Student.objects.filter(parentId=student.parentId).exclude(roll_no=roll)
 
 schema=graphene.Schema(query=Query)
-
-    
