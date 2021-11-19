@@ -30,7 +30,7 @@ class Query(graphene.ObjectType):
             student=Student.objects.get(roll_no=roll)
             pathObjects.append(student)
             roll= student.parentId
-        pathObjects.append(Student.objects.get(roll_no=roll))
+            pathObjects.append(Student.objects.get(roll_no=roll))
         return pathObjects
     
     def resolve_student_sibling(root,info, roll):
