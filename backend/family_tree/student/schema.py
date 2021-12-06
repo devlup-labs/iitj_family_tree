@@ -11,14 +11,14 @@ class StudentType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     students=graphene.List(StudentType)
-    children=graphene.List(StudentType, parent_id=graphene.String())
+    children=graphene.List(StudentType, parentId=graphene.String())
     student_path= graphene.List(StudentType, roll=graphene.String())
 
     def resolve_students(root,info):
         return Student.objects.all()
 
-    def resolve_children(parent_id):
-        return Student.objects.filter(parentId=parent_id)
+    def resolve_children(root, info, parentId):
+        return Student.objects.filter(parentId=parentId)
     
     def resolve_student_path(root, info, roll):
         pathObjects=[]
