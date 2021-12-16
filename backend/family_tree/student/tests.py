@@ -18,8 +18,8 @@ class StudentTestCases(GraphQLTestCase):
     def test_children_query(self):
         response = self.query('''
             query {
-                children(parentId: "1"){
-                    rollNo
+                students {
+                    id
                     name
                   }
                 }
