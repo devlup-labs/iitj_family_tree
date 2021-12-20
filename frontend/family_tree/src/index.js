@@ -4,6 +4,31 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import {
+  ApolloClient,
+  // InMemoryCache,
+  // ApolloProvider,
+  // useQuery,
+  // gql
+} from "@apollo/client";
+
+// const client = new ApolloClient({
+//   uri: 'localhost:8000/students',
+//   cache: new InMemoryCache()
+// });
+
+// client
+//   .query({
+//     query: gql`
+//       query GetRates {
+//         rates(currency: "USD") {
+//           currency
+//         }
+//       }
+//     `
+//   })
+//   .then(result => console.log(result));
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
