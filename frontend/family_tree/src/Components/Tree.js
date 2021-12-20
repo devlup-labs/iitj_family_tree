@@ -77,7 +77,8 @@ function D3Tree(){
       .attr("stroke", "steelblue")
       .attr("stroke-width", "3px;")
       .style('font', '12px sans-serif')
-      
+      // .attr("name",d=>d.id)
+      .on('contextmenu',right_click);
 
       nodeUpdate.transition()
         .duration(duration)
@@ -155,6 +156,16 @@ function D3Tree(){
           }
         update(node);
       }
+      function right_click(node){
+        // event.preventDefault();
+        d3.select(this).style("stroke","black");
+        const name1 = node.id ;
+        // const level1 = d3.select(this).select("circle").attr("level") ;
+        console.log(name1) ;
+        // <PCard name = {name1} />
+        // ReactDOM.render(<PCard name = {name1} level={level1} />,
+        // document.getElementById("root"))
+      } ;
     }
   })
 
