@@ -14,12 +14,13 @@ class StudentTestCases(GraphQLTestCase):
         self.student2 = mixer.blend(Student, name='student2', roll_no='2', parentId='1')
         self.student3 = mixer.blend(Student, name='student3', roll_no='3', parentId='1')
         self.student4 = mixer.blend(Student, name='student4', roll_no='4', parentId='1')
-
+    
+    
     def test_children_query(self):
         response = self.query('''
             query {
-                students {
-                    id
+                children(parentId: "1"){
+                    rollNo
                     name
                   }
                 }
@@ -30,3 +31,31 @@ class StudentTestCases(GraphQLTestCase):
         self.assertDictEqual(content['data']['children'][0], {'rollNo': '2', 'name': 'student2'})
         self.assertDictEqual(content['data']['children'][1], {'rollNo': '3', 'name': 'student3'})
         self.assertDictEqual(content['data']['children'][2], {'rollNo': '4', 'name': 'student4'})
+        
+    def test_student_query(self):
+        response = self.query('''
+            query {
+                students {
+                    id
+                    name
+                  }
+                }
+              ''')
+        content = json.loads(response.content)
+        self.assertResponseNoErrors(response)
+        self.assertDictEqual(content['data']['students'][0], {'id': str(self.student1.id), 'name': self.student1.name})
+        self.assertDictEqual(content['data']['students'][1], {'id': str(self.student2.id), 'name': self.student2.name})\
+        
+    def test_student_sibling(self):
+        response = self.query('''
+            query {
+                studentSibling(roll: "2") {
+                    id
+                    name
+                  }
+                }
+              ''')
+        content= json.loads(response.content)
+        self.assertResponseNoErrors(response)
+        self.assertDictEqual(content['data']['studentSibling'][0], {'id': str(self.student3.id), 'name': self.student3.name})
+        self.assertDictEqual(content['data']['studentSibling'][1], {'id': str(self.student4.id), 'name': self.student4.name})
