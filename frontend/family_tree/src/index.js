@@ -6,32 +6,22 @@ import reportWebVitals from './reportWebVitals';
 
 import {
   ApolloClient,
-  // InMemoryCache,
-  // ApolloProvider,
-  // useQuery,
-  // gql
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql
 } from "@apollo/client";
 
-// const client = new ApolloClient({
-//   uri: 'localhost:8000/students',
-//   cache: new InMemoryCache()
-// });
-
-// client
-//   .query({
-//     query: gql`
-//       query GetRates {
-//         rates(currency: "USD") {
-//           currency
-//         }
-//       }
-//     `
-//   })
-//   .then(result => console.log(result));
+const client = new ApolloClient({
+  uri: 'localhost:8000/students',
+  cache: new InMemoryCache()
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+      </ApolloProvider>,
   </React.StrictMode>,
   document.getElementById('root')
 );
