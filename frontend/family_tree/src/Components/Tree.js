@@ -77,7 +77,6 @@ function D3Tree(){
       .attr("stroke", "steelblue")
       .attr("stroke-width", "3px;")
       .style('font', '12px sans-serif')
-      
 
       nodeUpdate.transition()
         .duration(duration)
