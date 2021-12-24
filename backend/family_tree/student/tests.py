@@ -1,3 +1,4 @@
+from django.http import response
 from django.test import TestCase
 from graphene_django.utils.testing import GraphQLTestCase
 import json
@@ -10,10 +11,10 @@ class StudentTestCases(GraphQLTestCase):
 
     def setUp(self):
         super().setUp()
-        self.student1 = mixer.blend(Student, name='student1', roll_no='1', parentId='root')
-        self.student2 = mixer.blend(Student, name='student2', roll_no='2', parentId='1')
-        self.student3 = mixer.blend(Student, name='student3', roll_no='3', parentId='1')
-        self.student4 = mixer.blend(Student, name='student4', roll_no='4', parentId='1')
+        self.student1 = mixer.blend(Student, name='student1', roll_no='1', parentId='root',year=2019)
+        self.student2 = mixer.blend(Student, name='student2', roll_no='2', parentId='1', year=2020)
+        self.student3 = mixer.blend(Student, name='student3', roll_no='3', parentId='1', year=2020)
+        self.student4 = mixer.blend(Student, name='student4', roll_no='4', parentId='1', year=2020)
         self.student5 = mixer.blend(Student, name='student5', roll_no='5', parentId='2')
         self.student6 = mixer.blend(Student, name='student6', roll_no='6', parentId='5')
         self.student7 = mixer.blend(Student, name='student7', roll_no='7', parentId='6')
@@ -64,6 +65,24 @@ class StudentTestCases(GraphQLTestCase):
         self.assertDictEqual(content['data']['studentSibling'][0], {'id': str(self.student3.id), 'name': self.student3.name})
         self.assertDictEqual(content['data']['studentSibling'][1], {'id': str(self.student4.id), 'name': self.student4.name})
     
+    def test_student_batch(self):
+      response= self.query('''
+            query {
+                studentBatch(roll: "2") {
+                  id
+                  name
+                }
+              }
+            ''')
+      content= json.loads(response.content)
+      self.assertResponseNoErrors(response)
+      self.assertDictEqual(content['data']['studentBatch'][0][0], {'id': str(self.student2.id), 'name': self.student2.name})
+      self.assertDictEqual(content['data']['studentBatch'][0][1], {'id': str(self.student1.id), 'name': self.student1.name})
+      self.assertDictEqual(content['data']['studentBatch'][1][0], {'id': str(self.student3.id), 'name': self.student3.name})
+      self.assertDictEqual(content['data']['studentBatch'][1][1], {'id': str(self.student1.id), 'name': self.student1.name})
+      self.assertDictEqual(content['data']['studentBatch'][2][0], {'id': str(self.student4.id), 'name': self.student4.name})
+      self.assertDictEqual(content['data']['studentBatch'][1][1], {'id': str(self.student1.id), 'name': self.student1.name})
+    
     def test_student_path(self):
         response = self.query('''
             query {
@@ -72,7 +91,7 @@ class StudentTestCases(GraphQLTestCase):
                     name
                   }
                 }
-              ''')
+              ''')  
         content= json.loads(response.content)
         self.assertResponseNoErrors(response)
         self.assertDictEqual(content['data']['studentPath'][6], {'id': str(self.student1.id), 'name': self.student1.name})
