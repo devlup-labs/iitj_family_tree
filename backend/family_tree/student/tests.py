@@ -82,4 +82,23 @@ class StudentTestCases(GraphQLTestCase):
         self.assertDictEqual(content['data']['studentPath'][2], {'id': str(self.student7.id), 'name': self.student7.name})
         self.assertDictEqual(content['data']['studentPath'][1], {'id': str(self.student8.id), 'name': self.student8.name})
         self.assertDictEqual(content['data']['studentPath'][0], {'id': str(self.student9.id), 'name': self.student9.name})
-          
+    
+    def test_student_search(self):
+        response = self.query('''
+            query {
+                studentSearch(searchQuery: "student") {
+                    id
+                    name
+                  }
+                }
+              ''')
+        content= json.loads(response.content)
+        self.assertResponseNoErrors(response)
+        self.assertDictEqual(content['data']['studentSearch'][0], {'id': str(self.student1.id), 'name': self.student1.name})
+        self.assertDictEqual(content['data']['studentSearch'][1], {'id': str(self.student2.id), 'name': self.student2.name})
+        self.assertDictEqual(content['data']['studentSearch'][2], {'id': str(self.student3.id), 'name': self.student3.name})
+        self.assertDictEqual(content['data']['studentSearch'][3], {'id': str(self.student4.id), 'name': self.student4.name})
+        self.assertDictEqual(content['data']['studentSearch'][4], {'id': str(self.student5.id), 'name': self.student5.name})
+        self.assertDictEqual(content['data']['studentSearch'][5], {'id': str(self.student6.id), 'name': self.student6.name})
+        self.assertDictEqual(content['data']['studentSearch'][6], {'id': str(self.student7.id), 'name': self.student7.name})
+        self.assertDictEqual(content['data']['studentSearch'][7], {'id': str(self.student8.id), 'name': self.student8.name})
