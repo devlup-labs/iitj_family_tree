@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './App.css';
 import Help from './Components/Help.js';
 import SearchBar from "./Components/SearchBar";
@@ -17,7 +17,16 @@ function App() {
     }
   });
   
-  const x = StudentData[0];
+  const [name, setCardName] = useState("name");
+  const [branch, setCardBranch] = useState("branch");
+  const [year, setCardYear] = useState("year");
+  const [email, setCardEmail] = useState("email");
+  const [picture, setCardPicture] = useState("picture");
+  const [linkedIn, setCardLinkedIn] = useState("name");
+  const [hometown, setCardHometown] = useState("name");
+  const [coCurriculars, setCardCoCurriculars] = useState("");
+  const [socialMedia, setCardSocialMedia] = useState("name");
+  const [display, setCardDisplay] = useState(true);
 
   return (
     <ThemeProvider theme={theme}>
@@ -27,20 +36,29 @@ function App() {
         <Help />
       </div>
       
-      <D3Tree />
+      <D3Tree setCardName={setCardName}
+        setCardBranch={setCardBranch}
+        setCardYear={setCardYear}
+        setCardEmail={setCardEmail}
+        setCardPicture={setCardPicture}
+        setCardLinkedIn={setCardLinkedIn}
+        setCardHometown={setCardHometown}
+        setCardCoCurriculars={setCardCoCurriculars}
+        setCardSocialMedia={setCardSocialMedia}
+        setCardDisplay = {setCardDisplay}
+      />
 
-      <PCard
-        id={x.student.id}
-        branch={x.student.branch}
-        name={x.student.name}
-        year={x.student.year}
-        email={x.student.email}
-        picture={x.student.picture}
-        linkedIn={x.student.linkedIn}
-        hometown={x.student.hometown}
-        coCurriculars={x.student.coCurriculars}
-        socialMedia={x.student.socialMedia}
-        display= {true}
+      <PCard 
+        branch={branch}
+        name={name}
+        year={year}
+        email={email}
+        picture={picture}
+        linkedIn={linkedIn}
+        hometown={hometown}
+        coCurriculars={coCurriculars}
+        socialMedia={socialMedia}
+        display= {display}
       />
     </div>
     </ThemeProvider>
