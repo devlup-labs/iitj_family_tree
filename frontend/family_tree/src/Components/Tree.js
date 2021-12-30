@@ -58,16 +58,17 @@ function D3Tree(props){
         })
         .on('click', click)
         .on('contextmenu', function(node,d){
-          props.setCardName(d.id);
-          props.setCardBranch(d.data.student.branch);
-          props.setCardYear(d.data.student.year);
-          props.setCardEmail(d.data.student.email);
-          props.setCardPicture(d.data.student.picture);
-          props.setCardLinkedIn(d.data.student.linkedIn);
-          props.setCardHometown(d.data.student.hometown);
-          props.setCardCoCurriculars(d.data.student.coCurriculars);
-          props.setCardSocialMedia(d.data.student.socialMedia);
-          props.setCardDisplay(true);
+          props.setDetails({name: d.id, 
+            branch: d.data.student.branch, 
+            year: d.data.student.year,
+            email: d.data.student.email,
+            picture: d.data.student.picture,
+            linkedIn: d.data.student.linkedIn,
+            hometown: d.data.student.hometown,
+            coCurriculars: d.data.student.coCurriculars,
+            socialMedia: d.data.student.socialMedia,
+            display: true
+          });
         });
 
       nodeEnter.append('circle')
@@ -167,7 +168,7 @@ function D3Tree(props){
         update(node);
       }
     }
-  })
+  },[])
 
   return(
     <div id="tree"></div>

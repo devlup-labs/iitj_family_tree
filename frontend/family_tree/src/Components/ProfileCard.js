@@ -113,12 +113,11 @@ function PCard(props) {
               <Divider variant="middle" />
               <br />
               <Box sx={{ color: "#2a4158" ,textAlign:"center"}}>
-                {/* {props.coCurriculars.map((item) => (
+                {props.coCurriculars.map((item) => (
                   <Typography variant="body2" key={item} gutterBottom>
                     {item}
                   </Typography>
-                ))} */}
-                {props.coCurriculars}
+                ))}
               </Box>
             </React.Fragment>
           )}

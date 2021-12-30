@@ -39,7 +39,7 @@
         "picture": "url",
         "linkedIn": "url",
         "hometown": "Jammu",
-        "coCurriculars": [],
+        "coCurriculars": ["PClub head","Branch topper","6-star coder"],
         "socialMedia": { "insta": "link" }
       },
       "parent": "Root"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import './App.css';
 import Help from './Components/Help.js';
 import SearchBar from "./Components/SearchBar";
@@ -17,16 +17,7 @@ function App() {
     }
   });
   
-  const [name, setCardName] = useState("name");
-  const [branch, setCardBranch] = useState("branch");
-  const [year, setCardYear] = useState("year");
-  const [email, setCardEmail] = useState("email");
-  const [picture, setCardPicture] = useState("picture");
-  const [linkedIn, setCardLinkedIn] = useState("name");
-  const [hometown, setCardHometown] = useState("name");
-  const [coCurriculars, setCardCoCurriculars] = useState("");
-  const [socialMedia, setCardSocialMedia] = useState("name");
-  const [display, setCardDisplay] = useState(true);
+  const [details, setDetails] = useState({ name:"name", branch:"branch", year:"year", email:"email", picture:"picture", linkedIn:"", hometown:"", coCurriculars:"", socialMedia:"", display:true});
 
   return (
     <ThemeProvider theme={theme}>
@@ -36,29 +27,21 @@ function App() {
         <Help />
       </div>
       
-      <D3Tree setCardName={setCardName}
-        setCardBranch={setCardBranch}
-        setCardYear={setCardYear}
-        setCardEmail={setCardEmail}
-        setCardPicture={setCardPicture}
-        setCardLinkedIn={setCardLinkedIn}
-        setCardHometown={setCardHometown}
-        setCardCoCurriculars={setCardCoCurriculars}
-        setCardSocialMedia={setCardSocialMedia}
-        setCardDisplay = {setCardDisplay}
+      <D3Tree 
+        setDetails = {setDetails}
       />
 
       <PCard 
-        branch={branch}
-        name={name}
-        year={year}
-        email={email}
-        picture={picture}
-        linkedIn={linkedIn}
-        hometown={hometown}
-        coCurriculars={coCurriculars}
-        socialMedia={socialMedia}
-        display= {display}
+        branch={details.branch}
+        name={details.name}
+        year={details.year}
+        email={details.email}
+        picture={details.picture}
+        linkedIn={details.linkedIn}
+        hometown={details.hometown}
+        coCurriculars={details.coCurriculars}
+        socialMedia={details.socialMedia}
+        display= {details.display}
       />
     </div>
     </ThemeProvider>
