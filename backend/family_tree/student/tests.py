@@ -10,7 +10,7 @@ class StudentTestCases(GraphQLTestCase):
 
     def setUp(self):
         super().setUp()
-        self.student1 = mixer.blend(Student, name='student1', roll_no='1', parentId='root')
+        self.student1 = mixer.blend(Student, name='student1', roll_no='1', parentId=None)
         self.student2 = mixer.blend(Student, name='student2', roll_no='2', parentId='1')
         self.student3 = mixer.blend(Student, name='student3', roll_no='3', parentId='1')
         self.student4 = mixer.blend(Student, name='student4', roll_no='4', parentId='1')
