@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useState } from "react";
 import './App.css';
 import Help from './Components/Help.js';
 import SearchBar from "./Components/SearchBar";
@@ -17,7 +17,7 @@ function App() {
     }
   });
   
-  const x = StudentData[0];
+  const [details, setDetails] = useState({ name:"name", branch:"branch", year:"year", email:"email", picture:"picture", linkedIn:"", hometown:"", coCurriculars:"", socialMedia:"", display:true});
 
   return (
     <ThemeProvider theme={theme}>
@@ -27,20 +27,21 @@ function App() {
         <Help />
       </div>
       
-      <D3Tree />
+      <D3Tree 
+        setDetails = {setDetails}
+      />
 
-      <PCard
-        id={x.student.id}
-        branch={x.student.branch}
-        name={x.student.name}
-        year={x.student.year}
-        email={x.student.email}
-        picture={x.student.picture}
-        linkedIn={x.student.linkedIn}
-        hometown={x.student.hometown}
-        coCurriculars={x.student.coCurriculars}
-        socialMedia={x.student.socialMedia}
-        display= {true}
+      <PCard 
+        branch={details.branch}
+        name={details.name}
+        year={details.year}
+        email={details.email}
+        picture={details.picture}
+        linkedIn={details.linkedIn}
+        hometown={details.hometown}
+        coCurriculars={details.coCurriculars}
+        socialMedia={details.socialMedia}
+        display= {details.display}
       />
     </div>
     </ThemeProvider>

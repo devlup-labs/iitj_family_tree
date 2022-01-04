@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import StudentData from "../Data1.json";
 import React, { useLayoutEffect } from "react";
 
-function D3Tree(){
+function D3Tree(props){
   useLayoutEffect(() =>{
     var width = window.innerWidth;
     var height = window.innerHeight;
@@ -56,7 +56,20 @@ function D3Tree(){
           .attr("transform", function(d) {
             return "translate(" + source.x0  + "," + source.y0 + ")";
         })
-        .on('click', click);
+        .on('click', click)
+        .on('contextmenu', function(node,d){
+          props.setDetails({name: d.id, 
+            branch: d.data.student.branch, 
+            year: d.data.student.year,
+            email: d.data.student.email,
+            picture: d.data.student.picture,
+            linkedIn: d.data.student.linkedIn,
+            hometown: d.data.student.hometown,
+            coCurriculars: d.data.student.coCurriculars,
+            socialMedia: d.data.student.socialMedia,
+            display: true
+          });
+        });
 
       nodeEnter.append('circle')
           .attr('class', 'node')
@@ -155,7 +168,7 @@ function D3Tree(){
         update(node);
       }
     }
-  })
+  },[])
 
   return(
     <div id="tree"></div>
