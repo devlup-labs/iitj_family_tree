@@ -13,7 +13,7 @@ def tree_for_batch(root,info,batch):
     for student in batch:
         roll= student.roll_no
         pathObjects=[]
-        while(Student.objects.get(roll_no=roll).parentId!="root"):
+        while(Student.objects.get(roll_no=roll).parentId!=None):
             student=Student.objects.get(roll_no=roll)
             pathObjects.append(student)
             roll= student.parentId
@@ -37,7 +37,7 @@ class Query(graphene.ObjectType):
     
     def resolve_student_path(root, info, roll):
         pathObjects=[]
-        while(Student.objects.get(roll_no=roll).parentId!="root"):
+        while(Student.objects.get(roll_no=roll).parentId!=None):
             student=Student.objects.get(roll_no=roll)
             pathObjects.append(student)
             roll= student.parentId

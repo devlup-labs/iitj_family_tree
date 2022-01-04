@@ -11,7 +11,7 @@ class StudentTestCases(GraphQLTestCase):
 
     def setUp(self):
         super().setUp()
-        self.student1 = mixer.blend(Student, name='student1', roll_no='1', parentId='root',year=2019)
+        self.student1 = mixer.blend(Student, name='student1', roll_no='1', parentId=None,year=2019)
         self.student2 = mixer.blend(Student, name='student2', roll_no='2', parentId='1', year=2020)
         self.student3 = mixer.blend(Student, name='student3', roll_no='3', parentId='1', year=2020)
         self.student4 = mixer.blend(Student, name='student4', roll_no='4', parentId='1', year=2020)
