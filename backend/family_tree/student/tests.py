@@ -121,3 +121,16 @@ class StudentTestCases(GraphQLTestCase):
         self.assertDictEqual(content['data']['studentSearch'][5], {'id': str(self.student6.id), 'name': self.student6.name})
         self.assertDictEqual(content['data']['studentSearch'][6], {'id': str(self.student7.id), 'name': self.student7.name})
         self.assertDictEqual(content['data']['studentSearch'][7], {'id': str(self.student8.id), 'name': self.student8.name})
+
+    def test_student_node(self):
+        response = self.query('''
+            query {
+                studentNode(roll: "1") {
+                    id
+                    name
+                  }
+                }
+              ''')
+        content= json.loads(response.content)
+        self.assertResponseNoErrors(response)
+        self.assertDictEqual(content['data']['studentNode'], {'id': str(self.student1.id), 'name': self.student1.name})
