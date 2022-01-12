@@ -28,6 +28,10 @@ class Query(graphene.ObjectType):
     student_sibling= graphene.List(StudentType, roll=graphene.String())
     student_search= graphene.List(StudentType, search_query=graphene.String())
     student_batch= graphene.List(graphene.List(StudentType), roll=graphene.String())
+    student_node= graphene.Field(StudentType, roll=graphene.String())
+
+    def resolve_student_node(root,info,roll):
+        return Student.objects.get(roll_no=roll)
 
     def resolve_students(root,info):
         return Student.objects.all()
