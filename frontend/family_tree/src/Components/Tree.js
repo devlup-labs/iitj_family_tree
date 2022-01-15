@@ -14,11 +14,11 @@ function D3Tree(props){
                     }))
                     .append("g")
                     .attr("transform", "translate(" + width/2 + "," + height/3 + ")");
-    var data = StudentData;    
+    var data = props.TreeData;    
 
     var treemap = d3.tree().size([height,width]).nodeSize([120, 40]);
 
-    var stratify = d3.stratify().id(d=>d.student.name).parentId(d=>d.parent) ;
+    var stratify = d3.stratify().id(d=>d.rollNo).parentId(d=>d.parentId) ;
     var root = stratify(data);
 
     var i = 0;
@@ -27,7 +27,8 @@ function D3Tree(props){
     root.x0 = height / 2;
     root.y0 = 0;
 
-    root.children.forEach(collapse);
+    if(root.children){
+    root.children.forEach(collapse);}
     function collapse(d) {
       if(d.children) {
         d._children = d.children
@@ -59,14 +60,14 @@ function D3Tree(props){
         .on('click', click)
         .on('contextmenu', function(node,d){
           props.setDetails({name: d.id, 
-            branch: d.data.student.branch, 
-            year: d.data.student.year,
-            email: d.data.student.email,
-            picture: d.data.student.picture,
-            linkedIn: d.data.student.linkedIn,
-            hometown: d.data.student.hometown,
-            coCurriculars: d.data.student.coCurriculars,
-            socialMedia: d.data.student.socialMedia,
+            branch: d.data.branch, 
+            year: d.data.year,
+            email: d.data.email,
+            picture: d.data.picture,
+            linkedIn: d.data.linkedIn,
+            hometown: d.data.hometown,
+            coCurriculars: d.data.coCurriculars,
+            socialMedia: d.data.socialMedia,
             display: true
           });
         });
