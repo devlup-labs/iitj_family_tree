@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import './App.css';
 import Help from './Components/Help.js';
 import SearchBar from "./Components/SearchBar";
@@ -6,6 +6,8 @@ import StudentData from "./Data.json";
 import PCard from "./Components/ProfileCard.js";
 import { ThemeProvider, createTheme } from "@material-ui/core";
 import D3Tree from "./Components/Tree";
+import {client} from "./index.js";
+import {CHILDREN_QUERY, BATCH_QUERY, PATH_QUERY} from "./Queries.js";
 
 function App() {
 
@@ -18,6 +20,22 @@ function App() {
   });
   
   const [details, setDetails] = useState({ name:"name", branch:"branch", year:"year", email:"email", picture:"picture", linkedIn:"", hometown:"", coCurriculars:"", socialMedia:"", display:true});
+  const [TreeData, setTreeData] = useState({});
+  
+  async function FetchPath(rollNo) {
+    const response = await client.query({
+      query: PATH_QUERY,
+      variables: {
+        rollNo,
+      },
+    })
+    return response.data.studentPath;
+  }
+
+  useEffect(() => {
+    (FetchPath("B20AI054")).then(value => {setTreeData(value);})
+  , [TreeData]})
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -26,10 +44,11 @@ function App() {
       <div className="help">
         <Help />
       </div>
-      
+      {TreeData[0] && 
       <D3Tree 
+        TreeData = {TreeData}
         setDetails = {setDetails}
-      />
+      />}
 
       <PCard 
         branch={details.branch}
