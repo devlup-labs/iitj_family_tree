@@ -57,6 +57,25 @@ function D3Tree(props){
             return "translate(" + source.x0  + "," + source.y0 + ")";
         })
         .on('click', click)
+        .on("mouseover", function(d) {
+          var g = d3.select(this); 
+          if(g.property("childNodes").length<3) {
+          var info = g.append('text')
+            .classed('button', true)
+            .attr('x', -20)
+            .attr('y', -14)
+            .text("Fetch Batch")
+            .style("border", "solid")
+            .style("stroke", "red")
+            .style("cursor", "pointer")
+            .on('click', test);
+          }else{
+            g.select('.button').style("visibility", "visible");
+          }
+        })
+        .on("mouseout", function() {
+          d3.select(this).selectAll('.button').style("visibility", "hidden");
+        })
         .on('contextmenu', function(node,d){
           props.setDetails({name: d.id, 
             branch: d.data.student.branch, 
@@ -155,6 +174,10 @@ function D3Tree(props){
                     ${(s.x + d.x) / 2} ${d.y},
                     ${d.x} ${d.y}`
         return path;
+      }
+
+      function test(){
+        console.log("clicked");
       }
 
       function click(d,node) {

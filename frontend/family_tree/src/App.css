@@ -47,3 +47,24 @@
   width: 150px;
   height: 170px;
 }
+
+.button {
+	border: 1px;
+	border-radius: 6px;
+	cursor: pointer;
+	font-family: "JetBrains Mono";
+	overflow: hidden;
+	text-decoration: none; 
+	transition: box-shadow .15s, transform .15s;
+	will-change: box-shadow, transform;
+  outline: solid black 0.5px;
+}
+
+
+.button:hover {
+	transform: translateY(-2px);
+}
+
+.button:active {
+	transform: translateY(1px);
+}
