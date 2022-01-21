@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
-import StudentData from "../Data1.json";
 import React, { useLayoutEffect } from "react";
+import {CHILDREN_QUERY} from "../Queries.js";
+import {client} from "../index.js";
 
 function D3Tree(props){
   useLayoutEffect(() =>{
@@ -14,11 +15,11 @@ function D3Tree(props){
                     }))
                     .append("g")
                     .attr("transform", "translate(" + width/2 + "," + height/3 + ")");
-    var data = StudentData;    
+    var data = props.TreeData;    
 
     var treemap = d3.tree().size([height,width]).nodeSize([120, 40]);
 
-    var stratify = d3.stratify().id(d=>d.student.name).parentId(d=>d.parent) ;
+    var stratify = d3.stratify().id(d=>d.rollNo).parentId(d=>d.parentId) ;
     var root = stratify(data);
 
     var i = 0;
@@ -27,7 +28,18 @@ function D3Tree(props){
     root.x0 = height / 2;
     root.y0 = 0;
 
-    root.children.forEach(collapse);
+    async function FetchChildren(parentId) {
+      const response = await client.query({
+        query: CHILDREN_QUERY,
+        variables: {
+          parentId,
+        },
+      })
+      return response.data.children;
+    }
+
+    if(root.children){
+    root.children.forEach(collapse);}
     function collapse(d) {
       if(d.children) {
         d._children = d.children
@@ -56,6 +68,7 @@ function D3Tree(props){
           .attr("transform", function(d) {
             return "translate(" + source.x0  + "," + source.y0 + ")";
         })
+        .on('mouseover',updateChildren)
         .on('click', click)
         .on("mouseover", function(d) {
           var g = d3.select(this); 
@@ -93,14 +106,14 @@ function D3Tree(props){
         })
         .on('contextmenu', function(node,d){
           props.setDetails({name: d.id, 
-            branch: d.data.student.branch, 
-            year: d.data.student.year,
-            email: d.data.student.email,
-            picture: d.data.student.picture,
-            linkedIn: d.data.student.linkedIn,
-            hometown: d.data.student.hometown,
-            coCurriculars: d.data.student.coCurriculars,
-            socialMedia: d.data.student.socialMedia,
+            branch: d.data.branch, 
+            year: d.data.year,
+            email: d.data.email,
+            picture: d.data.picture,
+            linkedIn: d.data.linkedIn,
+            hometown: d.data.hometown,
+            coCurriculars: d.data.coCurriculars,
+            socialMedia: d.data.socialMedia,
             display: true
           });
         });
@@ -210,6 +223,19 @@ function D3Tree(props){
             node._children = null;
           }
         update(node);
+      }
+
+      function updateChildren(d,node){
+        if(!node.children && !node._children){
+          FetchChildren(node.data.rollNo)
+          .then(value=> {
+              if(value.length!==0){
+              data = data.concat(value);
+              root = stratify(data);
+              node._children = value;
+            }
+          })
+        }
       }
     }
   },[])
