@@ -70,6 +70,40 @@ function D3Tree(props){
         })
         .on('mouseover',updateChildren)
         .on('click', click)
+        .on("mouseover", function(d) {
+          var g = d3.select(this); 
+          if(g.property("childNodes").length<3) {
+            g.append('circle')
+            .attr('class', 'button')
+            .attr('fill', 'gray')
+            .attr('r', 10)
+            .attr("cx", -10)
+            .attr("cy", -14);
+            g.select('.button')
+            .append('animate')
+            .classed('animate', true)
+            .attr('attributeName', 'r')
+            .attr('values', '0;10')
+            .attr('begin', 'indefinite')
+            .attr('dur', '0.2s')
+            .attr('repeatCount', 1);
+          g.append('text')
+            .classed('button', true)
+            .attr('x', -16)
+            .attr('y', -10)
+            .text("FB")
+            .style("border", "solid")
+            .style("stroke", "white")
+            .style("cursor", "pointer")
+            .on('click', test);
+            g._groups[0][0].getElementsByTagName("animate")[0].beginElement();
+          }else{
+            g.selectAll('.button').style("visibility", "visible");
+          }
+        })
+        .on("mouseout", function() {
+          d3.select(this).selectAll('.button').style("visibility", "hidden");
+        })
         .on('contextmenu', function(node,d){
           props.setDetails({name: d.id, 
             branch: d.data.branch, 
@@ -89,6 +123,12 @@ function D3Tree(props){
           .attr('r', 1e-6)
           .style("fill", function(d) {
               return d._children ? "lightsteelblue" : "#fff";
+          })
+          .on('mouseover',(d)=>{
+            var g=d.target.parentNode
+            if(g.childNodes.length>3){
+            g.getElementsByTagName("animate")[0].beginElement();
+            }
           });
 
       nodeEnter.append('text')
@@ -170,13 +210,17 @@ function D3Tree(props){
         return path;
       }
 
-      function click(d,node) {       
-            if (node.children) {
-              node._children = node.children;
-              node.children = null;
-            } else {
-              node.children = node._children;
-              node._children = null;
+      function test(){
+        console.log("clicked");
+      }
+
+      function click(d,node) {
+        if (node.children) {
+            node._children = node.children;
+            node.children = null;
+          } else {
+            node.children = node._children;
+            node._children = null;
           }
         update(node);
       }
