@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
-import StudentData from "../Data1.json";
 import React, { useLayoutEffect } from "react";
+import {CHILDREN_QUERY} from "../Queries.js";
+import {client} from "../index.js";
 
 function D3Tree(props){
   useLayoutEffect(() =>{
@@ -26,6 +27,16 @@ function D3Tree(props){
 
     root.x0 = height / 2;
     root.y0 = 0;
+
+    async function FetchChildren(parentId) {
+      const response = await client.query({
+        query: CHILDREN_QUERY,
+        variables: {
+          parentId,
+        },
+      })
+      return response.data.children;
+    }
 
     if(root.children){
     root.children.forEach(collapse);}
@@ -57,6 +68,7 @@ function D3Tree(props){
           .attr("transform", function(d) {
             return "translate(" + source.x0  + "," + source.y0 + ")";
         })
+        .on('mouseover',updateChildren)
         .on('click', click)
         .on('contextmenu', function(node,d){
           props.setDetails({name: d.id, 
@@ -158,15 +170,28 @@ function D3Tree(props){
         return path;
       }
 
-      function click(d,node) {
-        if (node.children) {
-            node._children = node.children;
-            node.children = null;
-          } else {
-            node.children = node._children;
-            node._children = null;
+      function click(d,node) {       
+            if (node.children) {
+              node._children = node.children;
+              node.children = null;
+            } else {
+              node.children = node._children;
+              node._children = null;
           }
         update(node);
+      }
+
+      function updateChildren(d,node){
+        if(!node.children && !node._children){
+          FetchChildren(node.data.rollNo)
+          .then(value=> {
+              if(value.length!==0){
+              data = data.concat(value);
+              root = stratify(data);
+              node._children = value;
+            }
+          })
+        }
       }
     }
   },[])
