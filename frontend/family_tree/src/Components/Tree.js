@@ -60,17 +60,32 @@ function D3Tree(props){
         .on("mouseover", function(d) {
           var g = d3.select(this); 
           if(g.property("childNodes").length<3) {
-          var info = g.append('text')
+            g.append('circle')
+            .attr('class', 'button')
+            .attr('fill', 'gray')
+            .attr('r', 10)
+            .attr("cx", -10)
+            .attr("cy", -14);
+            g.select('.button')
+            .append('animate')
+            .classed('animate', true)
+            .attr('attributeName', 'r')
+            .attr('values', '0;10')
+            .attr('begin', 'indefinite')
+            .attr('dur', '0.2s')
+            .attr('repeatCount', 1);
+          g.append('text')
             .classed('button', true)
-            .attr('x', -20)
-            .attr('y', -14)
-            .text("Fetch Batch")
+            .attr('x', -16)
+            .attr('y', -10)
+            .text("FB")
             .style("border", "solid")
-            .style("stroke", "red")
+            .style("stroke", "white")
             .style("cursor", "pointer")
             .on('click', test);
+            g._groups[0][0].getElementsByTagName("animate")[0].beginElement();
           }else{
-            g.select('.button').style("visibility", "visible");
+            g.selectAll('.button').style("visibility", "visible");
           }
         })
         .on("mouseout", function() {
@@ -95,6 +110,12 @@ function D3Tree(props){
           .attr('r', 1e-6)
           .style("fill", function(d) {
               return d._children ? "lightsteelblue" : "#fff";
+          })
+          .on('mouseover',(d)=>{
+            var g=d.target.parentNode
+            if(g.childNodes.length>3){
+            g.getElementsByTagName("animate")[0].beginElement();
+            }
           });
 
       nodeEnter.append('text')
