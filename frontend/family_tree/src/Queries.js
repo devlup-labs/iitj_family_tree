@@ -32,3 +32,14 @@ export const PATH_QUERY = gql `
         }
     }
 `;
+
+export const ALL_QUERY = gql `
+    query StudentType {
+        students {
+            name,
+            rollNo,
+            id,
+            parentId,
+        }
+    }
+`;

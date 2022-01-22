@@ -14,7 +14,7 @@ function SearchBar({ placeholder, studentData }) {
       setFilteredData([]);
     } else {
       const filteredResults = studentData.filter((query) => {
-        return query.student.name.toLowerCase().includes(searchWord.toLowerCase()) + query.student.id.toLowerCase().includes(searchWord.toLowerCase());
+        return query.name.toLowerCase().includes(searchWord.toLowerCase()) + query.rollNo.toLowerCase().includes(searchWord.toLowerCase());
       });
       setFilteredData(filteredResults);
     }
@@ -46,7 +46,7 @@ function SearchBar({ placeholder, studentData }) {
         <div className="dataResult">
           {filteredData.slice(0, 5).map((value) => {
             return (
-              <p className="dataItem">{`${value.student.name} (${value.student.id})`} </p>
+              <p className="dataItem">{`${value.name} (${value.rollNo})`} </p>
             );
           })}
         </div>
