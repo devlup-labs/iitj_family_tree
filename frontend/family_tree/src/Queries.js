@@ -33,13 +33,11 @@ export const PATH_QUERY = gql `
     }
 `;
 
-export const ALL_QUERY = gql `
-    query StudentType {
-        students {
+export const SEARCH_QUERY = gql `
+    query StudentType($string: String!) {
+        studentSearch(searchQuery: $string) {
             name,
             rollNo,
-            id,
-            parentId,
         }
     }
 `;
