@@ -68,9 +68,9 @@ function D3Tree(props){
           .attr("transform", function(d) {
             return "translate(" + source.x0  + "," + source.y0 + ")";
         })
-        .on('mouseover',updateChildren)
         .on('click', click)
-        .on("mouseover", function(d) {
+        .on("mouseover", function(d,node) {
+          updateChildren(d,node)
           var g = d3.select(this); 
           if(g.property("childNodes").length<3) {
             g.append('circle')

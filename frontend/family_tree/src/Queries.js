@@ -32,3 +32,12 @@ export const PATH_QUERY = gql `
         }
     }
 `;
+
+export const SEARCH_QUERY = gql `
+    query StudentType($string: String!) {
+        studentSearch(searchQuery: $string) {
+            name,
+            rollNo,
+        }
+    }
+`;

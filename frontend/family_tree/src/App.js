@@ -20,7 +20,7 @@ function App() {
   
   const [details, setDetails] = useState({ name:"name", branch:"branch", year:"year", email:"email", picture:"picture", linkedIn:"", hometown:"", coCurriculars:"", socialMedia:"", display:true});
   const [TreeData, setTreeData] = useState({});
-  
+
   async function FetchPath(rollNo) {
     const response = await client.query({
       query: PATH_QUERY,
@@ -39,7 +39,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
     <div className="App">
-      <SearchBar placeholder="Enter the Name or Roll Number..." studentData={TreeData} />
+      <SearchBar placeholder="Enter the Name or Roll Number..." />
       <div className="help">
         <Help />
       </div>
