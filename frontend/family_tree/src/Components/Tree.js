@@ -1,9 +1,51 @@
 import * as d3 from 'd3';
-import React, { useLayoutEffect } from "react";
-import {CHILDREN_QUERY} from "../Queries.js";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import {CHILDREN_QUERY, PATH_QUERY} from "../Queries.js";
 import {client} from "../index.js";
 
 function D3Tree(props){
+  var data = props.TreeData;
+  var stratify = d3.stratify().id(d=>d.rollNo).parentId(d=>d.parentId) ;
+  var root = stratify(data);
+
+  async function FetchPath(rollNo) {
+    const response = await client.query({
+      query: PATH_QUERY,
+      variables: {
+        rollNo,
+      },
+    })
+    return response.data.studentPath;
+  }
+
+  async function FetchChildren(parentId) {
+    const response = await client.query({
+      query: CHILDREN_QUERY,
+      variables: {
+        parentId,
+      },
+    })
+    return response.data.children;
+  }
+
+  useEffect(()=>{
+    FetchPath(props.clickedNode).then((value)=> {
+      for(var i=value.length-1; i>=0; i--){
+        if(value[i].rollNo!==props.clickedNode){
+          FetchChildren(value[i].rollNo).then((value1)=>{
+            for(var i=0; i<value1.length; i++){
+              const hasValue = Object.values(data).includes(value1[i].rollNo);
+              if(!hasValue){
+                data = data.concat(value1);
+                break;
+              }
+            }
+          });
+        }
+      }
+      root = stratify(data);
+    }) 
+  },[props.clickedNode,data])
   useLayoutEffect(() =>{
     var width = window.innerWidth;
     var height = window.innerHeight;
@@ -15,28 +57,16 @@ function D3Tree(props){
                     }))
                     .append("g")
                     .attr("transform", "translate(" + width/2 + "," + height/3 + ")");
-    var data = props.TreeData;    
 
     var treemap = d3.tree().size([height,width]).nodeSize([120, 40]);
 
-    var stratify = d3.stratify().id(d=>d.rollNo).parentId(d=>d.parentId) ;
-    var root = stratify(data);
+    
 
     var i = 0;
     var duration = 750;
 
     root.x0 = height / 2;
     root.y0 = 0;
-
-    async function FetchChildren(parentId) {
-      const response = await client.query({
-        query: CHILDREN_QUERY,
-        variables: {
-          parentId,
-        },
-      })
-      return response.data.children;
-    }
 
     if(root.children){
     root.children.forEach(collapse);}
@@ -236,6 +266,7 @@ function D3Tree(props){
             }
           })
         }
+        console.log("click",data)
       }
     }
   },[])

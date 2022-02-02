@@ -20,6 +20,7 @@ function App() {
   
   const [details, setDetails] = useState({ name:"name", branch:"branch", year:"year", email:"email", picture:"picture", linkedIn:"", hometown:"", coCurriculars:"", socialMedia:"", display:true});
   const [TreeData, setTreeData] = useState({});
+  const [clickedNode, setClickedNode] = useState("");
 
   async function FetchPath(rollNo) {
     const response = await client.query({
@@ -32,14 +33,13 @@ function App() {
   }
 
   useEffect(() => {
-    (FetchPath("Root"))
-      .then(value => {setTreeData(value);})
-  , [TreeData]})
+    (FetchPath("Root")).then(value => {setTreeData(value);})
+  },[TreeData])
 
   return (
     <ThemeProvider theme={theme}>
     <div className="App">
-      <SearchBar placeholder="Enter the Name or Roll Number..." />
+      <SearchBar placeholder="Enter the Name or Roll Number..." setClickedNode={setClickedNode}/>
       <div className="help">
         <Help />
       </div>
@@ -47,6 +47,7 @@ function App() {
       <D3Tree 
         TreeData = {TreeData}
         setDetails = {setDetails}
+        clickedNode = {clickedNode}
       />}
 
       <PCard 
