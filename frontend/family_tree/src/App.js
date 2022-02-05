@@ -60,7 +60,7 @@ function App() {
         hometown={details.hometown}
         coCurriculars={details.coCurriculars}
         socialMedia={details.socialMedia}
-        display= {details.display}
+        display= {false}
       />
     </div>
     </ThemeProvider>

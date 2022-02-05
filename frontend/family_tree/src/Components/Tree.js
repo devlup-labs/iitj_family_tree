@@ -5,7 +5,13 @@ import {client} from "../index.js";
 
 function D3Tree(props){
   var data = props.TreeData;
+  // var [data,setData] = useState(props.TreeData);
+  // const updateData = useCallback(
+  //   result => setData(data.concat(result)),
+  //   [data, setData]
+  // );
   var stratify = d3.stratify().id(d=>d.rollNo).parentId(d=>d.parentId) ;
+  console.log("d1",data);
   var root = stratify(data);
 
   async function FetchPath(rollNo) {
@@ -36,14 +42,18 @@ function D3Tree(props){
             for(var i=0; i<value1.length; i++){
               const hasValue = Object.values(data).includes(value1[i].rollNo);
               if(!hasValue){
+                // console.log("yes");
                 data = data.concat(value1);
+                // setData(data.concat(value1));
                 break;
               }
             }
+            // value[i]._children = value1;
           });
         }
       }
       root = stratify(data);
+      // update(root);
     }) 
   },[props.clickedNode,data])
   useLayoutEffect(() =>{
@@ -79,7 +89,7 @@ function D3Tree(props){
     }
     update(root);
 
-    function update(source) {
+    function update(source){
       var treeData = treemap(root);
 
       var nodes = treeData.descendants(),
@@ -100,36 +110,38 @@ function D3Tree(props){
         })
         .on('click', click)
         .on("mouseover", function(d,node) {
+          // console.log("hi");
           updateChildren(d,node)
-          var g = d3.select(this); 
-          if(g.property("childNodes").length<3) {
-            g.append('circle')
-            .attr('class', 'button')
-            .attr('fill', 'gray')
-            .attr('r', 10)
-            .attr("cx", -10)
-            .attr("cy", -14);
-            g.select('.button')
-            .append('animate')
-            .classed('animate', true)
-            .attr('attributeName', 'r')
-            .attr('values', '0;10')
-            .attr('begin', 'indefinite')
-            .attr('dur', '0.2s')
-            .attr('repeatCount', 1);
-          g.append('text')
-            .classed('button', true)
-            .attr('x', -16)
-            .attr('y', -10)
-            .text("FB")
-            .style("border", "solid")
-            .style("stroke", "white")
-            .style("cursor", "pointer")
-            .on('click', test);
-            g._groups[0][0].getElementsByTagName("animate")[0].beginElement();
-          }else{
-            g.selectAll('.button').style("visibility", "visible");
-          }
+          // console.log("bye");
+          // var g = d3.select(this); 
+          // if(g.property("childNodes").length<3) {
+          //   g.append('circle')
+          //   .attr('class', 'button')
+          //   .attr('fill', 'gray')
+          //   .attr('r', 10)
+          //   .attr("cx", -10)
+          //   .attr("cy", -14);
+          //   g.select('.button')
+          //   .append('animate')
+          //   .classed('animate', true)
+          //   .attr('attributeName', 'r')
+          //   .attr('values', '0;10')
+          //   .attr('begin', 'indefinite')
+          //   .attr('dur', '0.2s')
+          //   .attr('repeatCount', 1);
+          // g.append('text')
+          //   .classed('button', true)
+          //   .attr('x', -16)
+          //   .attr('y', -10)
+          //   .text("FB")
+          //   .style("border", "solid")
+          //   .style("stroke", "white")
+          //   .style("cursor", "pointer")
+          //   .on('click', test);
+          //   g._groups[0][0].getElementsByTagName("animate")[0].beginElement();
+          // }else{
+          //   g.selectAll('.button').style("visibility", "visible");
+          // }
         })
         .on("mouseout", function() {
           d3.select(this).selectAll('.button').style("visibility", "hidden");
@@ -239,35 +251,52 @@ function D3Tree(props){
                     ${d.x} ${d.y}`
         return path;
       }
+    }
 
-      function test(){
-        console.log("clicked");
-      }
+    function test(){
+      console.log("clicked");
+    }
 
-      function click(d,node) {
-        if (node.children) {
-            node._children = node.children;
-            node.children = null;
-          } else {
-            node.children = node._children;
-            node._children = null;
-          }
-        update(node);
-      }
-
-      function updateChildren(d,node){
-        if(!node.children && !node._children){
-          FetchChildren(node.data.rollNo)
-          .then(value=> {
-              if(value.length!==0){
-              data = data.concat(value);
-              root = stratify(data);
-              node._children = value;
-            }
-          })
+    function click(d,node) {
+      console.log(node.data.rollNo,node._children,node.children);
+      console.log(node);
+      if (node.children) {
+          node._children = node.children;
+          node.children = null;
+        } else {
+          node.children = node._children;
+          node._children = null;
         }
-        console.log("click",data)
+      console.log("after",node.data.rollNo,node._children,node.children);
+      update(node);
+      // console.log("node",node._children,node.children);
+    }
+
+    function updateChildren(d,node){
+      if(!node.children && !node._children){
+        FetchChildren(node.data.rollNo)
+        .then(value=> {
+            if(value.length!==0){
+              for(var i=0; i<value.length; i++){
+                // console.log("val",value);
+                const hasValue = Object.values(data).includes(value[i].rollNo);
+                if(!hasValue){
+                  // console.log("yes");
+                  data = data.concat(value);
+                  // setData(data => [...data, value]);
+                  break;
+                }
+              } 
+            // setData(data => [...data, value]);
+            // console.log("data",data);
+            // node._children = value;
+            root = stratify(data);
+            // node._children = value;
+          }
+        })
+        // .then(console.log("hi",data))
       }
+      // console.log("click",data)
     }
   },[])
 
