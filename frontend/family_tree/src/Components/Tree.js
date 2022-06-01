@@ -1,17 +1,11 @@
 import * as d3 from 'd3';
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import {CHILDREN_QUERY, PATH_QUERY} from "../Queries.js";
+import {CHILDREN_QUERY, PATH_QUERY, NODE_DETAILS_QUERY} from "../Queries.js";
 import {client} from "../index.js";
 
 function D3Tree(props){
   var data = props.TreeData;
-  // var [data,setData] = useState(props.TreeData);
-  // const updateData = useCallback(
-  //   result => setData(data.concat(result)),
-  //   [data, setData]
-  // );
   var stratify = d3.stratify().id(d=>d.rollNo).parentId(d=>d.parentId) ;
-  console.log("d1",data);
   var root = stratify(data);
 
   async function FetchPath(rollNo) {
@@ -34,28 +28,37 @@ function D3Tree(props){
     return response.data.children;
   }
 
-  useEffect(()=>{
-    FetchPath(props.clickedNode).then((value)=> {
-      for(var i=value.length-1; i>=0; i--){
-        if(value[i].rollNo!==props.clickedNode){
-          FetchChildren(value[i].rollNo).then((value1)=>{
-            for(var i=0; i<value1.length; i++){
-              const hasValue = Object.values(data).includes(value1[i].rollNo);
-              if(!hasValue){
-                // console.log("yes");
-                data = data.concat(value1);
-                // setData(data.concat(value1));
-                break;
-              }
-            }
-            // value[i]._children = value1;
-          });
-        }
-      }
-      root = stratify(data);
-      // update(root);
-    }) 
-  },[props.clickedNode,data])
+  async function FetchNodeDetails(rollNo) {
+    const response = await client.query({
+        query: NODE_DETAILS_QUERY,
+        variables: {
+          rollNo,
+        },
+      })
+      return response.data.studentNode;
+  }
+
+  // useEffect(()=>{
+  //   FetchPath(props.clickedNode).then((value)=> {
+  //     for(var i=value.length-1; i>=0; i--){
+  //       if(value[i].rollNo!==props.clickedNode){
+  //         FetchChildren(value[i].rollNo).then((value1)=>{
+  //           for(var i=0; i<value1.length; i++){
+  //             const hasValue = data.some((temp=> temp.rollNo===value1[i].rollNo));
+  //             if(!hasValue){
+  //               data = data.concat(value1);
+  //               console.log(data);
+  //               break;
+  //             }
+  //           }
+  //         });
+  //       }
+  //     }
+  //     root = stratify(data);
+  //     update(root);
+  //   }) 
+  // },[props.clickedNode,data])
+
   useLayoutEffect(() =>{
     var width = window.innerWidth;
     var height = window.innerHeight;
@@ -70,8 +73,6 @@ function D3Tree(props){
 
     var treemap = d3.tree().size([height,width]).nodeSize([120, 40]);
 
-    
-
     var i = 0;
     var duration = 750;
 
@@ -79,7 +80,9 @@ function D3Tree(props){
     root.y0 = 0;
 
     if(root.children){
-    root.children.forEach(collapse);}
+      root.children.forEach(collapse);
+    }
+
     function collapse(d) {
       if(d.children) {
         d._children = d.children
@@ -91,7 +94,6 @@ function D3Tree(props){
 
     function update(source){
       var treeData = treemap(root);
-
       var nodes = treeData.descendants(),
           links = treeData.descendants().slice(1);
 
@@ -99,9 +101,10 @@ function D3Tree(props){
         d.y = d.depth * 180 ;
       });
 
-
       var node = svg.selectAll('g.node')
           .data(nodes, function(d) {return d.id || (d.id = ++i); });
+
+      var display = false;
 
       var nodeEnter = node.enter().append('g')
           .attr('class', 'node')
@@ -109,10 +112,10 @@ function D3Tree(props){
             return "translate(" + source.x0  + "," + source.y0 + ")";
         })
         .on('click', click)
-        .on("mouseover", function(d,node) {
-          // console.log("hi");
-          updateChildren(d,node)
-          // console.log("bye");
+        .on("mousedown", function(d,node) {
+          if(d.button==0){
+            updateChildren(d,node)
+          }
           // var g = d3.select(this); 
           // if(g.property("childNodes").length<3) {
           //   g.append('circle')
@@ -147,17 +150,22 @@ function D3Tree(props){
           d3.select(this).selectAll('.button').style("visibility", "hidden");
         })
         .on('contextmenu', function(node,d){
-          props.setDetails({name: d.id, 
-            branch: d.data.branch, 
-            year: d.data.year,
-            email: d.data.email,
-            picture: d.data.picture,
-            linkedIn: d.data.linkedIn,
-            hometown: d.data.hometown,
-            coCurriculars: d.data.coCurriculars,
-            socialMedia: d.data.socialMedia,
-            display: true
-          });
+          node.preventDefault();
+          display = !display;
+          FetchNodeDetails(d.data.rollNo).then((value)=>{
+            props.setDetails({name: d.data.name, 
+            branch: value.branch, 
+            year: value.year,
+            email: value.email,
+            picture: value.picture,
+            linkedIn: value.linkedIn,
+            hometown: value.homeTown,
+            coCurriculars: value.extraCurriculars,
+            // socialMedia: value.socialMedia,
+            display: display,
+            });
+          })
+          
         });
 
       nodeEnter.append('circle')
@@ -258,18 +266,16 @@ function D3Tree(props){
     }
 
     function click(d,node) {
-      console.log(node.data.rollNo,node._children,node.children);
-      console.log(node);
-      if (node.children) {
-          node._children = node.children;
-          node.children = null;
-        } else {
-          node.children = node._children;
-          node._children = null;
-        }
-      console.log("after",node.data.rollNo,node._children,node.children);
-      update(node);
-      // console.log("node",node._children,node.children);
+      setTimeout(()=> {
+        if (node.children) {
+            node._children = node.children;
+            node.children = null;
+          } else {
+            node.children = node._children;
+            node._children = null;
+          }
+        update(node);
+        },100)
     }
 
     function updateChildren(d,node){
@@ -278,25 +284,16 @@ function D3Tree(props){
         .then(value=> {
             if(value.length!==0){
               for(var i=0; i<value.length; i++){
-                // console.log("val",value);
-                const hasValue = Object.values(data).includes(value[i].rollNo);
+                const hasValue = data.some((temp=> temp.rollNo===value[i].rollNo));
                 if(!hasValue){
-                  // console.log("yes");
                   data = data.concat(value);
-                  // setData(data => [...data, value]);
                   break;
                 }
               } 
-            // setData(data => [...data, value]);
-            // console.log("data",data);
-            // node._children = value;
             root = stratify(data);
-            // node._children = value;
           }
         })
-        // .then(console.log("hi",data))
       }
-      // console.log("click",data)
     }
   },[])
 
