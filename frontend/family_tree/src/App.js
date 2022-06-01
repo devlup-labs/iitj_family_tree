@@ -18,7 +18,7 @@ function App() {
     }
   });
   
-  const [details, setDetails] = useState({ name:"name", branch:"branch", year:"year", email:"email", picture:"picture", linkedIn:"", hometown:"", coCurriculars:"", socialMedia:"", display:true});
+  const [details, setDetails] = useState({ name:"IIT JODHPUR", branch:"FAMILY", year:"TREE", email:"email", picture:"picture", linkedIn:"", hometown:"", coCurriculars:"", socialMedia:"", display:false});
   const [TreeData, setTreeData] = useState({});
   const [clickedNode, setClickedNode] = useState("");
 
@@ -59,7 +59,7 @@ function App() {
         linkedIn={details.linkedIn}
         hometown={details.hometown}
         coCurriculars={details.coCurriculars}
-        socialMedia={details.socialMedia}
+        // socialMedia={details.socialMedia}
         display= {details.display}
       />
     </div>

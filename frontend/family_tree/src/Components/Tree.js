@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import {CHILDREN_QUERY, PATH_QUERY} from "../Queries.js";
+import {CHILDREN_QUERY, PATH_QUERY, NODE_DETAILS_QUERY} from "../Queries.js";
 import {client} from "../index.js";
 
 function D3Tree(props){
@@ -28,24 +28,37 @@ function D3Tree(props){
     return response.data.children;
   }
 
-  useEffect(()=>{
-    FetchPath(props.clickedNode).then((value)=> {
-      for(var i=value.length-1; i>=0; i--){
-        if(value[i].rollNo!==props.clickedNode){
-          FetchChildren(value[i].rollNo).then((value1)=>{
-            for(var i=0; i<value1.length; i++){
-              const hasValue = Object.values(data).includes(value1[i].rollNo);
-              if(!hasValue){
-                data = data.concat(value1);
-                break;
-              }
-            }
-          });
-        }
-      }
-      root = stratify(data);
-    }) 
-  },[props.clickedNode,data])
+  async function FetchNodeDetails(rollNo) {
+    const response = await client.query({
+        query: NODE_DETAILS_QUERY,
+        variables: {
+          rollNo,
+        },
+      })
+      return response.data.studentNode;
+  }
+
+  // useEffect(()=>{
+  //   FetchPath(props.clickedNode).then((value)=> {
+  //     for(var i=value.length-1; i>=0; i--){
+  //       if(value[i].rollNo!==props.clickedNode){
+  //         FetchChildren(value[i].rollNo).then((value1)=>{
+  //           for(var i=0; i<value1.length; i++){
+  //             const hasValue = data.some((temp=> temp.rollNo===value1[i].rollNo));
+  //             if(!hasValue){
+  //               data = data.concat(value1);
+  //               console.log(data);
+  //               break;
+  //             }
+  //           }
+  //         });
+  //       }
+  //     }
+  //     root = stratify(data);
+  //     update(root);
+  //   }) 
+  // },[props.clickedNode,data])
+
   useLayoutEffect(() =>{
     var width = window.innerWidth;
     var height = window.innerHeight;
@@ -60,8 +73,6 @@ function D3Tree(props){
 
     var treemap = d3.tree().size([height,width]).nodeSize([120, 40]);
 
-    
-
     var i = 0;
     var duration = 750;
 
@@ -69,7 +80,9 @@ function D3Tree(props){
     root.y0 = 0;
 
     if(root.children){
-    root.children.forEach(collapse);}
+      root.children.forEach(collapse);
+    }
+
     function collapse(d) {
       if(d.children) {
         d._children = d.children
@@ -79,9 +92,8 @@ function D3Tree(props){
     }
     update(root);
 
-    function update(source) {
+    function update(source){
       var treeData = treemap(root);
-
       var nodes = treeData.descendants(),
           links = treeData.descendants().slice(1);
 
@@ -89,9 +101,10 @@ function D3Tree(props){
         d.y = d.depth * 180 ;
       });
 
-
       var node = svg.selectAll('g.node')
           .data(nodes, function(d) {return d.id || (d.id = ++i); });
+
+      var display = false;
 
       var nodeEnter = node.enter().append('g')
           .attr('class', 'node')
@@ -99,53 +112,60 @@ function D3Tree(props){
             return "translate(" + source.x0  + "," + source.y0 + ")";
         })
         .on('click', click)
-        .on("mouseover", function(d,node) {
-          updateChildren(d,node)
-          var g = d3.select(this); 
-          if(g.property("childNodes").length<3) {
-            g.append('circle')
-            .attr('class', 'button')
-            .attr('fill', 'gray')
-            .attr('r', 10)
-            .attr("cx", -10)
-            .attr("cy", -14);
-            g.select('.button')
-            .append('animate')
-            .classed('animate', true)
-            .attr('attributeName', 'r')
-            .attr('values', '0;10')
-            .attr('begin', 'indefinite')
-            .attr('dur', '0.2s')
-            .attr('repeatCount', 1);
-          g.append('text')
-            .classed('button', true)
-            .attr('x', -16)
-            .attr('y', -10)
-            .text("FB")
-            .style("border", "solid")
-            .style("stroke", "white")
-            .style("cursor", "pointer")
-            .on('click', test);
-            g._groups[0][0].getElementsByTagName("animate")[0].beginElement();
-          }else{
-            g.selectAll('.button').style("visibility", "visible");
+        .on("mousedown", function(d,node) {
+          if(d.button==0){
+            updateChildren(d,node)
           }
+          // var g = d3.select(this); 
+          // if(g.property("childNodes").length<3) {
+          //   g.append('circle')
+          //   .attr('class', 'button')
+          //   .attr('fill', 'gray')
+          //   .attr('r', 10)
+          //   .attr("cx", -10)
+          //   .attr("cy", -14);
+          //   g.select('.button')
+          //   .append('animate')
+          //   .classed('animate', true)
+          //   .attr('attributeName', 'r')
+          //   .attr('values', '0;10')
+          //   .attr('begin', 'indefinite')
+          //   .attr('dur', '0.2s')
+          //   .attr('repeatCount', 1);
+          // g.append('text')
+          //   .classed('button', true)
+          //   .attr('x', -16)
+          //   .attr('y', -10)
+          //   .text("FB")
+          //   .style("border", "solid")
+          //   .style("stroke", "white")
+          //   .style("cursor", "pointer")
+          //   .on('click', test);
+          //   g._groups[0][0].getElementsByTagName("animate")[0].beginElement();
+          // }else{
+          //   g.selectAll('.button').style("visibility", "visible");
+          // }
         })
         .on("mouseout", function() {
           d3.select(this).selectAll('.button').style("visibility", "hidden");
         })
         .on('contextmenu', function(node,d){
-          props.setDetails({name: d.id, 
-            branch: d.data.branch, 
-            year: d.data.year,
-            email: d.data.email,
-            picture: d.data.picture,
-            linkedIn: d.data.linkedIn,
-            hometown: d.data.hometown,
-            coCurriculars: d.data.coCurriculars,
-            socialMedia: d.data.socialMedia,
-            display: true
-          });
+          node.preventDefault();
+          display = !display;
+          FetchNodeDetails(d.data.rollNo).then((value)=>{
+            props.setDetails({name: d.data.name, 
+            branch: value.branch, 
+            year: value.year,
+            email: value.email,
+            picture: value.picture,
+            linkedIn: value.linkedIn,
+            hometown: value.homeTown,
+            coCurriculars: value.extraCurriculars,
+            // socialMedia: value.socialMedia,
+            display: display,
+            });
+          })
+          
         });
 
       nodeEnter.append('circle')
@@ -239,12 +259,14 @@ function D3Tree(props){
                     ${d.x} ${d.y}`
         return path;
       }
+    }
 
-      function test(){
-        console.log("clicked");
-      }
+    function test(){
+      console.log("clicked");
+    }
 
-      function click(d,node) {
+    function click(d,node) {
+      setTimeout(()=> {
         if (node.children) {
             node._children = node.children;
             node.children = null;
@@ -253,20 +275,24 @@ function D3Tree(props){
             node._children = null;
           }
         update(node);
-      }
+        },100)
+    }
 
-      function updateChildren(d,node){
-        if(!node.children && !node._children){
-          FetchChildren(node.data.rollNo)
-          .then(value=> {
-              if(value.length!==0){
-              data = data.concat(value);
-              root = stratify(data);
-              node._children = value;
-            }
-          })
-        }
-        console.log("click",data)
+    function updateChildren(d,node){
+      if(!node.children && !node._children){
+        FetchChildren(node.data.rollNo)
+        .then(value=> {
+            if(value.length!==0){
+              for(var i=0; i<value.length; i++){
+                const hasValue = data.some((temp=> temp.rollNo===value[i].rollNo));
+                if(!hasValue){
+                  data = data.concat(value);
+                  break;
+                }
+              } 
+            root = stratify(data);
+          }
+        })
       }
     }
   },[])
