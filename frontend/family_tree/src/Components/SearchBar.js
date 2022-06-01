@@ -5,7 +5,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import {client} from "../index.js";
 import {SEARCH_QUERY} from "../Queries.js";
 
-function SearchBar({ placeholder}) {
+function SearchBar({ placeholder, setClickedNode}) {
   const [wordEntered, setWordEntered] = useState("");
   const [retrievedData, setRetrievedData] = useState([]);
 
@@ -34,6 +34,10 @@ function SearchBar({ placeholder}) {
     setWordEntered("");
   };
 
+  var getRollNo = (e) => {
+    setClickedNode(e.target.innerHTML.slice(-10,-2));
+  }
+
   return (
     <div className="search">
       <div className="searchInputs">
@@ -55,7 +59,7 @@ function SearchBar({ placeholder}) {
         <div className="dataResult">
           {retrievedData.slice(0, 5).map((value) => {
             return (
-              <p className="dataItem" >{`${value.name} (${value.rollNo})`} </p>
+              <p className="dataItem" onClick={getRollNo}>{`${value.name} (${value.rollNo})`} </p>
             );
           })}
         </div>
