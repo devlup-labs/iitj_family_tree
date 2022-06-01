@@ -41,3 +41,17 @@ export const SEARCH_QUERY = gql `
         }
     }
 `;
+
+export const NODE_DETAILS_QUERY = gql `
+    query StudentType($rollNo: String!) {
+        studentNode(roll: $rollNo) {
+            branch,
+            year,
+            picture,
+            homeTown,
+            extraCurriculars,
+            linkedIn,
+            email,
+        }
+    }
+`;

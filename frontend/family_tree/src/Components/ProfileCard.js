@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Typography,
   Card,
@@ -43,15 +43,18 @@ const useStyles = makeStyles((theme) => ({
 
 function PCard(props) {
   const classes = useStyles();
-  const [isVisible, setisVisible] = React.useState(props.display?true:false);
-  const toggle = () => setisVisible(!isVisible);
+  const [isVisible, setisVisible] = React.useState(false);
+  useEffect(()=>{
+    setisVisible(true);
+  },[props.display])
+  
   return (
     <React.Fragment>
       { isVisible && (
       <Card className={classes.root} variant="outlined" >
         <Box sx={{ display: "flex", justifyContent: "right" }}>
          <CardActions>
-          <IconButton aria-label="close" onClick={toggle} >
+          <IconButton aria-label="close" onClick={() => {setisVisible(false);}} >
             <CloseOutlinedIcon />
           </IconButton>
           </CardActions>
@@ -113,7 +116,7 @@ function PCard(props) {
               <Divider variant="middle" />
               <br />
               <Box sx={{ color: "#2a4158" ,textAlign:"center"}}>
-                {props.coCurriculars.map((item) => (
+                {props.coCurriculars.split(",").map((item) => (
                   <Typography variant="body2" key={item} gutterBottom>
                     {item}
                   </Typography>
@@ -130,7 +133,7 @@ function PCard(props) {
             flexWrap: "wrap"
           }}
         >
-          <CardActions>
+          {/* <CardActions>
             {props.email && (
                 <IconButton 
                   className={classes.socialMediaButton} 
@@ -200,7 +203,7 @@ function PCard(props) {
                   <TwitterIcon color="primary" />
                 </IconButton>
             )}
-          </CardActions>
+          </CardActions> */}
         </Box>
       </Card>
        )}
