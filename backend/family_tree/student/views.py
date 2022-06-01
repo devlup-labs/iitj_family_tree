@@ -29,7 +29,8 @@ def upload(request):
                 linkedIn=line[7],
                 email=line[8],
                 parentId=line[9],
-                socialMedia=socialMediaObj
+                socialMedia=socialMediaObj,
+                isSg= line[12]
             )
 
     return render(request, 'excelImport.html')

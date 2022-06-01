@@ -6,7 +6,7 @@ from django.db.models import Q
 class StudentType(DjangoObjectType):
     class Meta:
         model= Student
-        fields= ("id","name","branch","year","picture","homeTown","extraCurriculars","socialMedia", "linkedIn","email","parentId","roll_no")
+        fields= ("id","name","branch","year","picture","homeTown","extraCurriculars","socialMedia", "linkedIn","email","parentId","roll_no","isSg")
         filter_fields=["id","name","branch","year","email","parentId","roll_no"]
 def tree_for_batch(root,info,batch):
     tree_for_batch=[]
