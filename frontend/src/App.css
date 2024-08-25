@@ -1,0 +1,13 @@
+body{
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  background-color: rgba(20, 95, 135, 0.469);
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}

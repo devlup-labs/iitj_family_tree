@@ -1,0 +1,49 @@
+version: '3'
+
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+
+  backend:
+    build: ./server
+    ports:
+      - "8000:8000"
+
+
+
+# version: '3'
+
+# services:
+#   backend:
+#     build:
+#       context: ./django
+#       dockerfile: Dockerfile
+#     volumes:
+#       - ./django:/app
+#     env_file:
+#       - .env
+#     expose:
+#       - "8000"
+
+#   frontend:
+#     build:
+#       context: ./react
+#       dockerfile: Dockerfile
+#     expose:
+#       - "80"
+
+#   nginx:
+#     build:
+#       context: ./nginx
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - backend
+#       - frontend
