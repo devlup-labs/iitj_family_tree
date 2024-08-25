@@ -1,0 +1,215 @@
+.Navbar{
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+}
+.header {
+  display: flex;
+  margin: 24px 30px;
+  border-radius: 20px;
+  box-shadow: -2px 4px 5px 0px #00000040;
+  background: linear-gradient(90deg, rgba(20, 94, 135, 0.75) 0%, rgba(173, 226, 255, 0.75) 100%);
+  justify-content: space-between;
+  padding: 10px 30px;
+  border: 0px solid #042056;
+}
+.logo{
+    display: flex;
+   align-items: center;
+}
+
+.logo img{
+   width: 50px;
+   height: 50px;
+   filter: drop-shadow(16px 16px 20px rgb(255, 4, 4));
+}
+.logotexts {
+  padding-left: 13px;
+}
+
+.logotexts p{
+   text-decoration: none;
+   color: rgb(255, 255, 255);
+   font-size: 1rem;
+   margin: 0px;
+}
+ .app_link{
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  gap: 30px;
+ }
+  .treeD a {
+    display: inline-block;
+    position: relative;
+    color: #979797;
+    text-decoration: none;
+   font-size: 1.2rem;
+   font-weight: 400;
+  }
+  
+  .treeD a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #0a577db1;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .treeD a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+.searchInput {
+  /* border: none; */
+  background: white;
+  outline: none;
+  color: rgb(3, 3, 3);
+  font-size: 15px;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.searchInput::placeholder {
+  color: rgb(5, 5, 5);
+}
+ .modalresult {
+   position: fixed;
+   top: 100px;
+   right: 30px;
+   display: flex;
+   justify-content: end;
+ }
+ .modal-contenthelpsu {
+   background-color: rgba(20, 94, 135, 0.75);
+   padding: 20px;
+   border-radius: 5px;
+   box-shadow: 0 0 10px rgba(20, 20, 20, 0.3);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+ .searchtext {
+   color: rgb(173, 173, 173);
+   text-decoration: none;
+   justify-content: center;
+   align-items: center;
+   font-size: 1.3rem;
+   text-transform: capitalize;
+ }
+
+ .searchtext div:hover {
+   cursor: pointer;
+   color: white;
+
+ }
+ .visible {
+   animation: movedown 1s forwards;
+ }
+
+ .notvisible {
+   animation: moveup 1s forwards;
+ }
+
+ @keyframes movedown {
+   0% {
+     transform: translateY(-400px);
+     /* Start position: move up by 100px */
+   }
+
+   60% {
+     transform: translateY(100px);
+     /* End position: move down to original position */
+   }
+
+   100% {
+     transform: translateY(0);
+     /* End position: move down to original position */
+   }
+ }
+
+ @keyframes moveup {
+   100% {
+     transform: translateY(-400px);
+     /* Start position: move up by 100px */
+   }
+
+   0% {
+     transform: translateY(0);
+     /* End position: move down to original position */
+   }
+ }
+  @media screen and (max-width: 900px) {
+    .logotexts {
+    display: none;
+    }
+
+
+  }
+.phone_button{
+  display: none;
+}
+ .phonenavebar {
+   position: fixed;
+   top: 70px;
+   left: 10px;
+   display: flex;
+   justify-content: end;
+ }
+
+ .phonenavebar_container {
+   background-color: rgba(20, 94, 135, 0.75);
+   padding: 20px;
+   border-radius: 5px;
+   box-shadow: 0 0 10px rgba(20, 20, 20, 0.3);
+   display: flex;
+   justify-content: start;
+   align-items: start;
+   flex-direction: column;
+   height: 200px;
+   width: 100px;
+ }
+ .phonenavebar_container a{
+  display: inline-block;
+    position: relative;
+    color: #979797;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 400;
+ }
+ @media screen and (max-width: 750px) {
+.app_link {
+    gap: 10px;
+  }
+ }
+
+  @media screen and (max-width: 600px) {
+  .treeD {
+      display: none;
+    }
+  .logo{
+    display: none;
+  }
+  .phone_button{
+  display: flex;
+}
+.header {
+  margin: 24px 10px;
+  padding: 10px 10px;
+}
+
+.modalresult {
+  top: 90px;
+  right: 5px;
+}
+ }
+ @media screen and (max-width: 450px) {
+
+ }
+  
+    
