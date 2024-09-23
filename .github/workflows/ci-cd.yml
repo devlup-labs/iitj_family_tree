@@ -37,7 +37,7 @@ jobs:
     #     npm run build
     - name: Print environment variables
       run: |
-        echo "NO: ${{ secrets.NU }}"
+        echo "NO: ${{ secrets.NO }}"
         echo "Server IP: ${{ secrets.SERVER_IP }}"
         echo "Server Username: ${{ secrets.SERVER_USERNAME }}"
 
