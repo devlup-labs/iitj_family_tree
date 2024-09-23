@@ -35,6 +35,10 @@ jobs:
     #   run: |
     #     cd frontend
     #     npm run build
+    - name: Print environment variables
+      run: |
+        echo "Server IP: ${{ secrets.SERVER_IP }}"
+        echo "Server Username: ${{ secrets.SERVER_USERNAME }}"
 
     - name: Deploy to server via SSH
       uses: appleboy/ssh-action@master
