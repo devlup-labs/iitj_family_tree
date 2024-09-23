@@ -47,5 +47,5 @@ jobs:
           cd frontend
           git pull origin main
           npm install
-          npm run build
-          pm2 restart react-app
+        #   npm run build
+        #   pm2 restart react-app
