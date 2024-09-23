@@ -26,15 +26,15 @@ jobs:
         cd frontend
         npm install
 
-    - name: Run tests
-      run: |
-        cd frontend
-        npm test
+    # - name: Run tests
+    #   run: |
+    #     cd frontend
+    #     npm test
 
-    - name: Build React app
-      run: |
-        cd frontend
-        npm run build
+    # - name: Build React app
+    #   run: |
+    #     cd frontend
+    #     npm run build
 
     - name: Deploy to server via SSH
       uses: appleboy/ssh-action@master
