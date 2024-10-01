@@ -41,7 +41,9 @@ jobs:
         echo "Server IP: ${{ secrets.SERVER_IP }}"
         echo "Server Username: ${{ secrets.SERVER_USERNAME }}"
 
-    # - name: Deploy to server via SSH
+    - name: Deploy to server via SSH
+      run: |
+        ssh 
     #   uses: appleboy/ssh-action@master
     #   with:
     #     host: ${{ secrets.SERVER_IP }}

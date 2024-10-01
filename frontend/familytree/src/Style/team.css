@@ -1,0 +1,115 @@
+.modalme{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-contentme{
+    padding: 20px;
+    border-radius: 5px;
+    color: aliceblue;
+    font-weight: 900;
+    justify-content: center;
+    align-items: center;
+    background: rgba(20, 94, 135, 0.75);
+box-shadow: 0 8px 32px 0 rgba(243, 243, 243, 0.37);
+border-radius: 10px;
+}
+.iconsocialmedia{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color:aliceblue;
+  }
+  .closeshomepro{
+    position: relative;
+    top: 0px;
+    right:0px !important;
+    cursor: pointer;
+    color:aliceblue;
+  }
+
+
+
+/* Popup.css */
+.modalhelp {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.visible {
+  animation: movedown 1s forwards;
+}
+
+.notvisible {
+  animation: moveup 1s forwards;
+}
+
+@keyframes movedown {
+  0% {
+    transform: translateY(-400px);
+    /* Start position: move up by 100px */
+  }
+
+  60% {
+    transform: translateY(100px);
+    /* End position: move down to original position */
+  }
+
+  100% {
+    transform: translateY(0);
+    /* End position: move down to original position */
+  }
+}
+
+@keyframes moveup {
+  100% {
+    transform: translateY(-400px);
+    /* Start position: move up by 100px */
+  }
+
+  0% {
+    transform: translateY(0);
+    /* End position: move down to original position */
+  }
+}
+
+.modal-contenthelp {
+  /* background-color: rgba(255, 255, 255, 0.338); */
+  padding: 20px;
+  width: 400px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(20, 20, 20, 0.3);
+  color: aliceblue;
+  font-weight: 900;
+
+  background: rgba(14, 14, 14, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(243, 243, 243, 0.37);
+  border-radius: 10px;
+}
+
+.closes {
+  position: relative;
+  top: 0px;
+  right: 0px !important;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .modal-contenthelp {
+    width: 250px;
+  }
+}
