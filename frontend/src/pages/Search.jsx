@@ -4,6 +4,7 @@ import IitjTree from './IitjTree';
 import { useNavigate,useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import background from '../image/b1.jpg'
 
 const Search = () => {
   const navigate = useNavigate();
@@ -27,32 +28,27 @@ const Search = () => {
   studentSearch(searchQuery: $searchtexts) {
         name
         rollNo
-        year
         picture
         parentId
       }
       children(rollNumber:$searchtexts) {
      name
         rollNo
-        year
         picture
   }
   parent(rollNumber:$searchtexts) {
       name
         rollNo
-        year
         picture
   }
   sibling(rollNumber:$searchtexts) {
      name
         rollNo
-        year
         picture
   }
   student(rollNumber:$searchtexts) {
       name
         rollNo
-        year
         picture
   }
     }
@@ -71,12 +67,23 @@ const Search = () => {
     return navigate('/')
 
   }
+  const mystyle={
+    backgroundImage: `url(${background})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    height: "100vh",
+    opacity: '0.8',
+    minWidth: "2400px", 
+    width: "100%",
+    
+   };
   return (
     <div className='topmargin'>
     <ToastContainer />
       <div className="text">
-        <div className='treediv'>
-          {loading ? <div className="tree">Loading...</div> : data.studentSearch[0].parentId == null || data.parent == null ? navigate('/') : <IitjTree data={data} />}
+        <div style={mystyle} className='blur-[10px] relative min-h-[100vh]'></div>
+        <div className='absolute top-[0%]'>
+          {loading ? <div className="tree" >Loading...</div> : data.studentSearch[0].parentId == null || data.parent == null ? navigate('/') : <IitjTree data={data} />}
               </div>
       </div>
     </div>
