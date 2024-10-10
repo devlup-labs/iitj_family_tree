@@ -33,7 +33,9 @@ function App() {
 //  console.log(window.location.pathname)
   return (
     
-    <BrowserRouter>
+    <BrowserRouter
+ basename="/familytree/"
+	  >
     <DataProvider>
     <ToastContainer />
     <Navbar error={error}/>

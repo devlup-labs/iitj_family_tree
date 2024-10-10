@@ -1,2 +1,0 @@
- build dockerfile-production : 
-    run this command :  sudo docker build -t iitj_tree:03 -f Dockerfile_Production .
