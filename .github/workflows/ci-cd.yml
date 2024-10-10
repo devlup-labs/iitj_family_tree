@@ -21,10 +21,10 @@ jobs:
       with:
         node-version: '16'
 
-    - name: Navigate to frontend and install dependencies
-      run: |
-        cd frontend
-        npm install
+    # - name: Navigate to frontend and install dependencies
+    #   run: |
+    #     cd frontend
+    #     npm install
 
     # - name: Run tests
     #   run: |
@@ -35,15 +35,15 @@ jobs:
     #   run: |
     #     cd frontend
     #     npm run build
-    - name: Print environment variables
-      run: |
-        echo "NO: ${{ secrets.NO }}"
-        echo "Server IP: ${{ secrets.SERVER_IP }}"
-        echo "Server Username: ${{ secrets.SERVER_USERNAME }}"
+    # - name: Print environment variables
+    #   run: |
+    #     echo "NO: ${{ secrets.NO }}"
+    #     echo "Server IP: ${{ secrets.SERVER_IP }}"
+    #     echo "Server Username: ${{ secrets.SERVER_USERNAME }}"
 
-    - name: Deploy to server via SSH
-      run: |
-        ssh 
+    # - name: Deploy to server via SSH
+    #   run: |
+    #     ssh 
     #   uses: appleboy/ssh-action@master
     #   with:
     #     host: ${{ secrets.SERVER_IP }}
