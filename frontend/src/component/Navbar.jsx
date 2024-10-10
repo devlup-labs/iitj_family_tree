@@ -48,10 +48,10 @@ function Navbar({ error }) {
           close ? null :
             <div className='phonenavebar'>
               <div className="phonenavebar_container">
-                <Link to="/" style={window.location.pathname === 'https://devluplabs.iitj.ac.in/' ? { color: 'black' } : null}>
+                <Link to="/" style={window.location.pathname === 'https://devluplabs.iitj.ac.in/familytree/' ? { color: 'black' } : null}>
                   Home
                 </Link>
-                <Link to="/ImageTree" style={window.location.pathname === 'https://devluplabs.iitj.ac.in/ImageTree' ? { color: 'black' } : null}>
+                <Link to="/ImageTree" style={window.location.pathname === 'https://devluplabs.iitj.ac.in/familytree/ImageTree' ? { color: 'black' } : null}>
                   ImageTree
                 </Link>
               </div>
@@ -68,12 +68,12 @@ function Navbar({ error }) {
         </div>
         <div className="app_link">
           <div className="treeD">
-            <Link to="/" style={window.location.pathname === '/' ? { color: 'black' } : null}>
+            <Link to="/" style={window.location.pathname === 'https://devluplabs.iitj.ac.in/familytree/' ? { color: 'black' } : null}>
               Home
             </Link>
           </div>
           <div className="treeD">
-            <Link to="/ImageTree" style={window.location.pathname === '/ImageTree' ? { color: 'black' } : null}>
+            <Link to="/ImageTree" style={window.location.pathname === 'https://devluplabs.iitj.ac.in/familytree/ImageTree' ? { color: 'black' } : null}>
               ImageTree
             </Link>
           </div>
