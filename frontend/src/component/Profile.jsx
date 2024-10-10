@@ -29,7 +29,7 @@ function Profile({ toggleModal, rollNo }) {
         {!loading ?
           <>
             {
-              window.location.pathname === '/' ?
+              window.location.pathname === 'https://devluplabs.iitj.ac.in/familytree/' ?
                 <div className='flex justify-center items-center flex-col'>
                   <img src={data.picture ? data.picture : demo} alt="" className='imagepro' />
                   <div>{data.name}</div>
