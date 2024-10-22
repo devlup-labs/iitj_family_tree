@@ -1,27 +1,36 @@
 import React, { useState } from "react";
 import "../Styles/SearchBar.css";
 import SearchIcon from "@material-ui/icons/Search";
-import CloseIcon from "@material-ui/icons/Close"
+import CloseIcon from "@material-ui/icons/Close";
+import {client} from "../index.js";
+import {SEARCH_QUERY} from "../Queries.js";
 
-function SearchBar({ placeholder, studentData }) {
-  const [filteredData, setFilteredData] = useState([]);
+function SearchBar({ placeholder}) {
   const [wordEntered, setWordEntered] = useState("");
+  const [retrievedData, setRetrievedData] = useState([]);
+
+  async function FetchString(string) {
+    const response = await client.query({
+      query: SEARCH_QUERY,
+      variables: {
+        string,
+      },
+    })
+    return response.data.studentSearch;
+  }
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
     if (searchWord.length < 3) {
-      setFilteredData([]);
+      setRetrievedData([]);
     } else {
-      const filteredResults = studentData.filter((query) => {
-        return query.student.name.toLowerCase().includes(searchWord.toLowerCase()) + query.student.id.toLowerCase().includes(searchWord.toLowerCase());
-      });
-      setFilteredData(filteredResults);
+      FetchString(searchWord).then(value => setRetrievedData(value));
     }
   };
 
   const clearState = () => {
-    setFilteredData([]);
+    setRetrievedData([]);
     setWordEntered("");
   };
 
@@ -42,11 +51,11 @@ function SearchBar({ placeholder, studentData }) {
           )}
         </div>
       </div>
-      {filteredData.length !== 0 && (
+      {retrievedData.length !== 0 && (
         <div className="dataResult">
-          {filteredData.slice(0, 5).map((value) => {
+          {retrievedData.slice(0, 5).map((value) => {
             return (
-              <p className="dataItem">{`${value.student.name} (${value.student.id})`} </p>
+              <p className="dataItem" >{`${value.name} (${value.rollNo})`} </p>
             );
           })}
         </div>

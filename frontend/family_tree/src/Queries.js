@@ -14,9 +14,9 @@ export const CHILDREN_QUERY = gql `
 export const BATCH_QUERY = gql `
     query StudentType($rollNo: String!) {
         studentBatch(roll: $rollNo) {
-            id,
             name,
             rollNo,
+            id,
             parentId,
         }
     }
@@ -25,10 +25,19 @@ export const BATCH_QUERY = gql `
 export const PATH_QUERY = gql `
     query StudentType($rollNo: String!) {
         studentPath(roll: $rollNo) {
-            id,
             name,
             rollNo,
+            id,
             parentId,
+        }
+    }
+`;
+
+export const SEARCH_QUERY = gql `
+    query StudentType($string: String!) {
+        studentSearch(searchQuery: $string) {
+            name,
+            rollNo,
         }
     }
 `;
