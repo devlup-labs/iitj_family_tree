@@ -1,0 +1,40 @@
+.modalprofile {
+    position:fixed;
+    top: 36%;
+    right: 1%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .modal-contentprofile {
+    background-color: rgb(165, 201, 221);
+    border-radius: 5px;
+    box-shadow: 2px 5px 10px rgba(20, 20, 20, 0.261);
+    padding: 20px;
+
+  }
+  .closespro {
+    position: relative;
+    top: -180px;
+    font-size: 1.7rem;
+    cursor: pointer;
+  }
+  .imagepro{
+    position: relative;
+    border-radius: 50%;
+   height: 200px;
+   width: 200px;
+  }
+  .linkedicon{
+    /* color: #0077B5; */
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .iconbutton{
+    color: #0000005d;
+    font-size: 1.5rem;
+    font-weight: 900;
+    position: relative;
+    left: 30%;
+  }

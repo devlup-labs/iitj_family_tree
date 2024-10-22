@@ -1,0 +1,51 @@
+.home{
+  filter: blur(10px);
+  position: relative;
+ }
+ .typewriterStyle{
+  position: absolute;
+top: 4%;
+width: 99%;
+height: 96vh;
+}
+
+.help{
+  position: fixed;
+  right: 1%;
+  bottom: 2.2%;
+ }
+
+ .team{
+  position: fixed;
+  right: 1.3%;
+  bottom: 0.8%;
+  color: rgb(0, 0, 0);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 12px;
+ }
+
+
+.text_{
+  fill: aliceblue;
+  stroke: rgb(255, 255, 255);
+  font-weight: 100;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  box-shadow: -2px 2px 4px 0px #00000040;
+}
+.imagetree{
+  background-color: black;
+}
+.circlecolor{
+    fill: #ffffff;
+}
+.loading_conatiner{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading{
+  height: 100px;
+}

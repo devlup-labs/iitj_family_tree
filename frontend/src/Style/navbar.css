@@ -1,0 +1,186 @@
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid rgba(0, 0, 0, 0.348);
+  background-color:rgba(137, 173, 218, 0.951);
+}
+.logo{
+    display: flex;
+   align-items: center;
+}
+
+.logo img{
+   width: 50px;
+   height: 50px;
+   filter: drop-shadow(16px 16px 20px rgb(255, 4, 4));
+}
+.logotexts {
+  padding-left: 20px;
+}
+
+.logotexts p{
+   text-decoration: none;
+   font-size: 1rem;
+   margin: 10px;
+}
+ .app_link{
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  gap: 30px;
+ }
+  .treeD a {
+    display: inline-block;
+    position: relative;
+    color: #222222d7;
+    text-decoration: none;
+   font-size: 1.2rem;
+   font-weight: 400;
+  }
+  
+  .treeD a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #0a577db1;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .treeD a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+.searchInput {
+  /* border: none; */
+  background: rgba(35, 35, 35, 0.35);
+  outline: none;
+  color: rgba(255, 255, 255, 0.935);
+  font-size: 15px;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.searchInput::placeholder {
+  color: rgba(255, 255, 255, 0.939);
+}
+ .modal-contenthelpsu {
+   background-color: rgba(137, 173, 218, 0.951);
+   padding: 20px;
+   /* border-radius: 5px; */
+   /* box-shadow: 0 0 10px rgba(20, 20, 20, 0.3); */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+ .searchtext {
+   color: rgb(0, 0, 0);
+   text-decoration: none;
+   justify-content: center;
+   align-items: center;
+   font-size: 1.3rem;
+   text-transform: capitalize;
+ }
+
+ .searchtext div:hover {
+   cursor: pointer;
+   color: white;
+
+ }
+ .visible {
+   animation: movedown 1s forwards;
+ }
+
+ .notvisible {
+   animation: moveup 1s forwards;
+ }
+
+ @keyframes movedown {
+   0% {
+     transform: translateY(-400px);
+     /* Start position: move up by 100px */
+   }
+
+   60% {
+     transform: translateY(100px);
+     /* End position: move down to original position */
+   }
+
+   100% {
+     transform: translateY(0);
+     /* End position: move down to original position */
+   }
+ }
+
+ @keyframes moveup {
+   100% {
+     transform: translateY(-400px);
+     /* Start position: move up by 100px */
+   }
+
+   0% {
+     transform: translateY(0);
+     /* End position: move down to original position */
+   }
+ }
+  @media screen and (max-width: 900px) {
+    .logotexts {
+    display: none;
+    }
+
+
+  }
+.phone_button{
+  display: none;
+}
+ .phonenavebar {
+   position: fixed;
+   top: 60px;
+   left: 0px;
+   display: flex;
+   justify-content: end;
+ }
+
+ .phonenavebar_container {
+   background-color: rgba(20, 94, 135, 0.75);
+   padding: 20px;
+   box-shadow: 0 0 10px rgba(20, 20, 20, 0.3);
+   display: flex;
+   justify-content: start;
+   align-items: start;
+   flex-direction: column;
+   height: 100vh;
+   width: 100vw;
+ }
+ .phonenavebar_container a{
+  display: inline-block;
+    position: relative;
+    color: #979797;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 400;
+ }
+ @media screen and (max-width: 750px) {
+.app_link {
+    gap: 10px;
+  }
+ }
+
+  @media screen and (max-width: 600px) {
+  .treeD {
+      display: none;
+    }
+  .logo{
+    display: none;
+  }
+  .phone_button{
+  display: flex;
+}
+ }
+  
+    
