@@ -3,6 +3,10 @@
 ## Title
 [Provide a relevant and descriptive title for the pull request.]
 
+
+## Description and Impact
+[Provide a summary of the changes made in this PR. Explain why the change is necessary/being made, and how it improves the project (include effects on performance, new dependencies, or changes in behaviour). Link any related issues.]
+
 ## Type of Change
 - [ ] New feature
 - [ ] Bug fix
@@ -17,9 +21,6 @@
 - [ ] I have commented my code, particularly in hard-to-understand areas.
 - [ ] I have made corresponding changes to the documentation.
 - [ ] My changes generate no new warnings 
-
-## Description and Impact
-[Provide a summary of the changes made in this PR. Explain why the change is necessary/being made, and how it improves the project (include effects on performance, new dependencies, or changes in behaviour). Link any related issues.]
 
 ## Testing
 [Mention the steps to test the changes. Ex: include setup steps, how to verify the changes, etc.] 
