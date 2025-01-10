@@ -1,0 +1,20 @@
+name: 🚀 Feature Request
+description: Suggest an enhancement to this project.
+labels:
+  - 'type: enhancement'
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the request
+    validations:
+      required: true
+  
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add any additional information here.
+    validations:
+      required: false
+  
