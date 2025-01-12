@@ -1,7 +1,7 @@
-import '../Style/tree.css'
+import '../assets/Style/tree.css'
 import React, { useState } from 'react'
-import Profile from "../component/Profile";
-import profileimg from '../image/download.jpeg'
+import Profile from "./Profile";
+import profileimg from '../assets/image/download.jpeg'
 
 const IitjTree = ({ data }) => {
   const studentid = data.student

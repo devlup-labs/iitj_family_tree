@@ -1,11 +1,11 @@
 import React from 'react'
-import '../Style/profile.css'
+import '../assets/Style/profile.css'
 import { Link } from "react-router-dom";
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { FaLinkedin } from 'react-icons/fa';
 import { useQuery, gql } from "@apollo/client";
 import { FaChevronRight } from 'react-icons/fa';
-import demo from '../image/download.jpeg'
+import demo from '../assets/image/download.jpeg'
 function Profile({ toggleModal, rollNo }) {
   const FILMS_QUERY = gql`
     query Query($rollNo: String!) {
