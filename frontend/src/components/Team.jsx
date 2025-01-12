@@ -16,10 +16,10 @@ const Team = ({ team, teamshow }) => {
         <AiOutlineCloseCircle style={{ fontSize: '2rem', }} onClick={team} className='closeshomepro' />
         <p>Ashutosh kumar (B22CS015)</p>
         <div className='iconsocialmedia'>
-          <a href='https://www.linkedin.com/in/ashutosh-kumar-5aa3b3259/' target='_blank'>
+          <a href='https://www.linkedin.com/in/ashutosh-kumar-5aa3b3259/' target='_blank' rel="noreferrer">
             <FaLinkedin style={{ fontSize: '2rem', color: 'white' }} onClick={team} />
           </a>
-          <a href='https://github.com/a19hu/' target='_blank'>
+          <a href='https://github.com/a19hu/' target='_blank' rel="noreferrer">
             <FaGithub style={{ fontSize: '2rem', color: 'white' }} onClick={team} />
           </a>
         </div>

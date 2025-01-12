@@ -60,12 +60,12 @@ const IitjTree = ({ data }) => {
         <ul>
           {treeDatas.map((item, index) =>
             <li className={item.name + index} key={index}>
-              <div className={item.rollNo == 'B22AI063' ? "container_JYOTIN  " : "container"}
+              <div className={item.rollNo === 'B22AI063' ? "container_JYOTIN  " : "container"}
               // "container ${item.rollNo}" 
               >
                 <div 
                 // className="container_info"
-                className={item.rollNo == 'B22AI063' ? "container_info_JYOTIN  " : "container_info"}
+                className={item.rollNo === 'B22AI063' ? "container_info_JYOTIN  " : "container_info"}
                 >
                   <div className="hovertext" onClick={() => toggleModal(item.rollNo)}>{item.name.slice(0,15) + ''}</div>
                   <div className="info">
