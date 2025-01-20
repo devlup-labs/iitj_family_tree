@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import '../Style/team.css'
+import '../assets/Style/team.css'
 import { FaLinkedin, FaGithub} from 'react-icons/fa';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Tree from 'react-d3-tree';
-import '../Style/home.css'
+import '../assets/Style/home.css'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import Profile from '../component/Profile';
+import Profile from './Profile';
 
-const DTree = ({ data }) => {
+const TwoDTree = ({ data }) => {
   const [roll, setroll] = useState()
   const [showModal, setShowModal] = useState(false);
   const value = 0.5;
@@ -104,4 +104,4 @@ const DTree = ({ data }) => {
   )
 }
 
-export default DTree
+export default TwoDTree
