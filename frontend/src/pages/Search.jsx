@@ -1,10 +1,10 @@
 import React from 'react';
 import { useQuery, gql, } from "@apollo/client";
-import IitjTree from './IitjTree';
+import IitjTree from '../components/Family';
 import { useNavigate,useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import background from '../image/b1.jpg'
+import background from '../assets/image/b1.jpg'
 
 const Search = () => {
   const navigate = useNavigate();

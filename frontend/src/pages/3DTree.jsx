@@ -1,9 +1,9 @@
 import { ForceGraph3D } from 'react-force-graph';
 import React from 'react';
 import * as THREE from 'three';
-import defaultimage from '../image/download.jpeg'
-import logo from '../image/logo.png'
-import background from '../image/b1.jpg'
+import defaultimage from '../assets/image/download.jpeg'
+import logo from '../assets/image/logo.png'
+import background from '../assets/image/b1.jpg'
 
 const ImageTree = ({ data }) => {
   const nodes = [{

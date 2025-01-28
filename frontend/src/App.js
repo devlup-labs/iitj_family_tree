@@ -1,10 +1,10 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Navbar from "./component/Navbar";
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Search from './pages/Search';
 import { DataProvider } from './context/DataContext';
-import ImageTree from './pages/ImageTree';
+import ImageTree from './pages/3DTree';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';

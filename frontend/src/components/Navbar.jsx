@@ -1,6 +1,6 @@
-import "../Style/navbar.css";
+import "../assets/Style/navbar.css";
 import { Link } from "react-router-dom";
-import logo from "../image/logo.png";
+import logo from "../assets/image/logo.png";
 import React, { useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { useNavigate } from 'react-router-dom';
