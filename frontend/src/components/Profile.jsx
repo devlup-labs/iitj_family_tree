@@ -1,7 +1,6 @@
 import React from 'react'
 import '../assets/Style/profile.css'
 import { Link } from "react-router-dom";
-import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { FaLinkedin } from 'react-icons/fa';
 import { useQuery, gql } from "@apollo/client";
 import { FaChevronRight } from 'react-icons/fa';
