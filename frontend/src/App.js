@@ -41,7 +41,7 @@ function App() {
     <Navbar error={error}/>
    <Routes>
      <Route path="/" element={<Home data={data}/>} />
-     <Route path="/search/:id" element={<Search />} />
+     <Route path="/search" element={<Search />} />
      <Route path="/ImageTree" element={<ImageTree data={data}/>} />
    </Routes>
      </DataProvider>
