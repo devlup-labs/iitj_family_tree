@@ -13,10 +13,10 @@ const ImageTree = ({ data }) => {
     img: logo
   }];
   const links = [];
-  var image;
+  // var image;
   if (data[0]) {
 
-    image = data[0].picture.replace('open', 'thumbnail')
+    // image = data[0].picture.replace('open', 'thumbnail')
   }
 
   const processNode = (node, parentId) => {
