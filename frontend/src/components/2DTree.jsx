@@ -3,13 +3,13 @@ import Tree from "react-d3-tree";
 import "../assets/Style/home.css";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import Profile from "./Profile";
+// import Profile from "./Profile";
 import { useData } from "../context/DataContext"; 
 import { useNavigate } from "react-router-dom";
 
 const TwoDTree = ({ data }) => {
-  const [roll, setroll] = useState();
-  const [showModal, setShowModal] = useState(false);
+  // const [roll, setroll] = useState();
+  // const [showModal, setShowModal] = useState(false);
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
   const treeContainerRef = useRef(null);
   const value = 0.5;
@@ -67,19 +67,19 @@ const TwoDTree = ({ data }) => {
   });
   new_data.push(all_parent);
 
-  const handleNodeMouseOver = (nodeDatum) => {
-    // console.log(search);
-    if (nodeDatum.name !== "All") {
-      setroll(nodeDatum);
-      setShowModal(true);
-    }
-  };
+  // const handleNodeMouseOver = (nodeDatum) => {
+  //   // console.log(search);
+  //   if (nodeDatum.name !== "All") {
+  //     setroll(nodeDatum);
+  //     setShowModal(true);
+  //   }
+  // };
 
-  const handleNodeMouseOut = (nodeData) => {
-    if (nodeData.name !== "All") {
-      setShowModal(false);
-    }
-  };
+  // const handleNodeMouseOut = (nodeData) => {
+  //   if (nodeData.name !== "All") {
+  //     setShowModal(false);
+  //   }
+  // };
 
   const renderCustom = ({ nodeDatum, toggleNode }) => {
     const str = nodeDatum.name;
@@ -88,8 +88,8 @@ const TwoDTree = ({ data }) => {
     return (
       <g
         onClick={toggleNode}
-        onMouseOut={() => handleNodeMouseOut(nodeDatum)}
-        onMouseOver={() => handleNodeMouseOver(nodeDatum)}
+        // onMouseOut={() => handleNodeMouseOut(nodeDatum)}
+        // onMouseOver={() => handleNodeMouseOver(nodeDatum)}
         id={nodeDatum.rollNo}
       >
         <circle r={7} className="circlecolor" onClick={
@@ -119,7 +119,7 @@ const TwoDTree = ({ data }) => {
 
   return (
     <>
-      {showModal && <Profile rollNo={roll.rollNo} />}
+      {/* {showModal && <Profile rollNo={roll.rollNo} />} */}
       <div ref={treeContainerRef} style={{ width: "100%", height: "100vh" }}>
         <Tree
           data={new_data}

@@ -1,4 +1,4 @@
-.modalme{
+.modalme {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,108 +8,127 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
-.modal-contentme{
-    padding: 20px;
-    border-radius: 5px;
+
+.modal-contentme {
+    padding: 30px;
+    border-radius: 10px;
     color: aliceblue;
-    font-weight: 900;
-    justify-content: center;
-    align-items: center;
-    background: rgba(20, 94, 135, 0.75);
-box-shadow: 0 8px 32px 0 rgba(243, 243, 243, 0.37);
-border-radius: 10px;
+    background: rgba(20, 94, 135, 0.85);
+    box-shadow: 0 8px 32px 0 rgba(243, 243, 243, 0.37);
+    max-width: 800px;
+    width: 90%;
 }
-.iconsocialmedia{
+
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 15px;
+}
+
+.team-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.team-members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.team-member-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.team-member-card h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.2rem;
+}
+
+.member-id {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.iconsocialmedia {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    color:aliceblue;
-  }
-  .closeshomepro{
-    position: relative;
-    top: 0px;
-    right:0px !important;
+    margin-top: 15px;
+}
+
+.iconsocialmedia a {
+    transition: transform 0.2s ease;
+}
+
+.iconsocialmedia a:hover {
+    transform: scale(1.2);
+}
+
+.closeshomepro {
     cursor: pointer;
-    color:aliceblue;
-  }
+    color: aliceblue;
+    transition: transform 0.2s ease;
+}
 
-
-
-/* Popup.css */
-.modalhelp {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(3px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.closeshomepro:hover {
+    transform: scale(1.1);
+    color: #a3a3a3;
 }
 
 .visible {
-  animation: movedown 1s forwards;
+    animation: movedown 0.5s forwards;
 }
 
 .notvisible {
-  animation: moveup 1s forwards;
+    animation: moveup 0.5s forwards;
 }
 
 @keyframes movedown {
-  0% {
-    transform: translateY(-400px);
-    /* Start position: move up by 100px */
-  }
-
-  60% {
-    transform: translateY(100px);
-    /* End position: move down to original position */
-  }
-
-  100% {
-    transform: translateY(0);
-    /* End position: move down to original position */
-  }
+    0% {
+        transform: translateY(-400px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 @keyframes moveup {
-  100% {
-    transform: translateY(-400px);
-    /* Start position: move up by 100px */
-  }
-
-  0% {
-    transform: translateY(0);
-    /* End position: move down to original position */
-  }
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-400px);
+        opacity: 0;
+    }
 }
 
-.modal-contenthelp {
-  /* background-color: rgba(255, 255, 255, 0.338); */
-  padding: 20px;
-  width: 400px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(20, 20, 20, 0.3);
-  color: aliceblue;
-  font-weight: 900;
-
-  background: rgba(14, 14, 14, 0.4);
-  box-shadow: 0 8px 32px 0 rgba(243, 243, 243, 0.37);
-  border-radius: 10px;
-}
-
-.closes {
-  position: relative;
-  top: 0px;
-  right: 0px !important;
-  cursor: pointer;
-}
-
-@media screen and (max-width: 600px) {
-  .modal-contenthelp {
-    width: 250px;
-  }
+@media screen and (max-width: 768px) {
+    .team-members-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-contentme {
+        width: 85%;
+        padding: 20px;
+    }
 }
