@@ -14,7 +14,9 @@ import os
 from pathlib import Path
 import psycopg2
 import environ
+from dotenv import load_dotenv
 
+load_dotenv()
 env = environ.Env()
 environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,9 +30,19 @@ DJANGO_ENV = os.getenv('DJANGO_ENV', 'development')
 SECRET_KEY = 'django-insecure-w72ih+f^$g$lmg$#60w*3!-i*t+jl8cfc-nsfaas=zfdwq6ckv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
+    }
+}
 
 # Application definition
 
@@ -96,10 +108,10 @@ DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': os.getenv('DB_NAME', 'familytree'),
-            'USER': os.getenv('DB_USER', 'postgres'),
-            'PASSWORD': os.getenv('DB_PASSWORD', 'dev@iitj'),
-            'HOST': os.getenv('DB_HOST', '10.6.0.63'),
-            'PORT': os.getenv('DB_PORT', '5432'),
+            'USER': os.getenv('DB_USER', ' '),
+            'PASSWORD': os.getenv('DB_PASSWORD', ' '),
+            'HOST': os.getenv('DB_HOST', ' '),
+            'PORT': os.getenv('DB_PORT', ' '),
         }
 }
 
@@ -148,23 +160,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3001',
-    'http://localhost:3000',
-    'http://localhost:3006',
-    
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
 
+CORS_ORIGIN_WHITELIST = os.getenv('CORS_ORIGIN_WHITELIST', '').split(',')
 
-]
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'http://127.0.0.1:3000'
-]
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 
 GRAPHENE = {

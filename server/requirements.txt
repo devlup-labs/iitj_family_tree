@@ -5,12 +5,16 @@ Django==5.0.7
 django-cors-headers==4.4.0
 django-environ==0.11.2
 django-import-export==4.1.1
+django-redis==5.4.0
 djangorestframework==3.15.2
 graphene==3.3
 graphene-django==3.2.2
 graphql-core==3.2.3
 graphql-relay==3.2.0
 promise==2.3
+psycopg2-binary==2.9.10
+python-dotenv==1.0.1
+redis==5.2.1
 six==1.16.0
 sqlparse==0.5.0
 tablib==3.5.0

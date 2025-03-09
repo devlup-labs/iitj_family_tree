@@ -5,6 +5,13 @@ import defaultimage from '../assets/image/download.jpeg'
 import logo from '../assets/image/logo.png'
 import background from '../assets/image/b1.jpg'
 
+function convertGoogleDriveUrl(url, size = 80) {
+  const fileId = url.match(/id=([^&]+)/)?.[1];
+  if (!fileId) return url;
+  
+  return `https://lh3.googleusercontent.com/d/${fileId}=s${size}`;
+}
+
 const ImageTree = ({ data }) => {
   const nodes = [{
     id: 'All',
@@ -24,7 +31,7 @@ const ImageTree = ({ data }) => {
       id: node.rollNo,
       user: node.name,
       description: node.rollNo,
-      img: node.picture ? node.picture : defaultimage
+      img: node.picture ? convertGoogleDriveUrl(node.picture) : defaultimage
     };
     nodes.push(nodeData);
     if (node.parentId) {
@@ -44,7 +51,7 @@ const ImageTree = ({ data }) => {
         id: element.rollNo,
         user: element.name,
         description: element.rollNo,
-        img: element.picture ? element.picture : defaultimage
+        img: element.picture ? convertGoogleDriveUrl(element.picture) : defaultimage
       };
       nodes.push(nodeData);
       links.push({ source: 'All', target: element.rollNo });

@@ -12,23 +12,7 @@
   position: relative;
   display: block;
 }
-.container_JYOTIN{
-  border: 3px solid #ffffff;
-  box-shadow: 2px 2px 5px black;
-  /* padding: 10px 10px; */
-  color: #ffffff;
-  font-family: arial, verdana, tahoma;
-  font-size: 20px;
-  display: inline-block;
-  border-radius: 20px;
-  transition: all 0.5s;
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  cursor: pointer;
-  width: 100px;
-  height: 120px;
-  background-color: #3574b4;
-}
+
 .tree_ li {
   float: left; 
   text-align: center;
