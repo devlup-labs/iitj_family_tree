@@ -1,40 +1,79 @@
 .modalprofile {
-    position:fixed;
-    top: 36%;
-    right: 1%;
-    height: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Ensures proper centering */
     display: flex;
     align-items: center;
-  }
-  
-  .modal-contentprofile {
+    justify-content: center;
+    height: auto;
+    z-index: 1000;
+    width: fit-content; /* Adjusts width dynamically */
+    min-width: 300px;
+    max-width: 90vw; /* Prevents it from being too wide */
+}
+
+.modal-contentprofile {
     background-color: rgb(165, 201, 221);
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 2px 5px 10px rgba(20, 20, 20, 0.261);
     padding: 20px;
+    width: 300px; /* Ensures uniform size */
+    text-align: center;
+}
 
-  }
+/* 
   .closespro {
     position: relative;
     top: -180px;
     font-size: 1.7rem;
     cursor: pointer;
-  }
-  .imagepro{
+  } */
+
+  .closespro {
+    position: absolute;
+    top: 10px;
+    right: 15px; /* Aligns it to the top-right */
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+
+  /* .imagepro{
     position: relative;
     border-radius: 50%;
    height: 200px;
    width: 200px;
-  }
+  } */
+
+  .imagepro {
+    display: block;
+    margin: 0 auto; /* Ensures the image is centered */
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+}
+
+
   .linkedicon{
     /* color: #0077B5; */
     font-size: 1.5rem;
     cursor: pointer;
   }
-  .iconbutton{
+
+  /* .iconbutton{
     color: #0000005d;
     font-size: 1.5rem;
     font-weight: 900;
     position: relative;
     left: 30%;
-  }
+  } */
+
+  .iconbutton {
+    color: #0000005d;
+    font-size: 1.5rem;
+    font-weight: 900;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%); /* Ensures perfect centering */
+}

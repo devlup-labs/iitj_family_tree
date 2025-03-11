@@ -8,14 +8,27 @@ const Home = ({data}) => {
   const team=()=>{
     setteamshow(!teamshow)
   }
-  const mystyle={
-    backgroundImage: `url(${background})`,
-    backdropFilter: "blur(6px)",
+  // const mystyle={
+  //   backgroundImage: `url(${background})`,
+  //   backdropFilter: "blur(6px)",
+  //   backgroundSize: "cover",
+  //   backgroundRepeat: "no-repeat",
+  //   height: "100vh",
+  //   opacity: '0.8',
+  //  };
+
+  const mystyle = {
+    backgroundImage: `url(${background})`, // Corrected syntax
     backgroundSize: "cover",
+    backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     height: "100vh",
-    opacity: '0.8',
-   };
+    width: "100%",
+    opacity: 0.8,
+  };
+  
+
+
   return (
 
     <>

@@ -66,10 +66,23 @@ const TwoDTree = ({ data }) => {
       setShowModal(false)
     }
   };
+  // const dimensions = {
+  //   width: 800,
+  //   height: 600
+  // };
+  
   const dimensions = {
-    width: 800,
-    height: 600
+    width: window.innerWidth,  // Full screen width
+    height: window.innerHeight // Full screen height
   };
+  
+  <Tree 
+    data={new_data}
+    translate={{ x: dimensions.width / 2, y: dimensions.height / 2 }} // Center both horizontally & vertically
+    dimensions={dimensions}
+  />
+  
+
   return (
     <>
       {showModal && (
@@ -83,12 +96,12 @@ const TwoDTree = ({ data }) => {
         zoom={1.5}
         zoomable={true}
         linkClassName={"custom-link"}
-        depthFactor={500}
+        depthFactor={300}
         linkProps={getLinkProps}
         // initialDepth={2}
         // pathFunc="straight"
         nodeSize={{ x: 100, y: 20 }}
-        translate={{ x: 200, y: 530 }}
+        // translate={{ x: 200, y: 530 }}
         // draggable={false}
         dimensions={dimensions}
         // orientation={"vertical"}
