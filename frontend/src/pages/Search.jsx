@@ -1,14 +1,16 @@
 import React from 'react';
 import { useQuery, gql, } from "@apollo/client";
 import IitjTree from '../components/Family';
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import background from '../assets/image/b1.jpg'
+import { useSearchParams } from 'react-router-dom';
 
 const Search = () => {
   const navigate = useNavigate();
-  var { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const id= searchParams.get('q');
   const searchtexts=window.atob(id);
   const FILMS_QUERYS = gql`
    query Query($searchtexts: String!) {

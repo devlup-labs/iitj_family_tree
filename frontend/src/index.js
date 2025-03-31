@@ -7,7 +7,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 
 
 const client = new ApolloClient({
-  uri: `https://devluplabs.iitj.ac.in/ftadmin/graphql/`,
+  uri: `${process.env.REACT_APP_BASE_URL}/ftadmin/graphql/`,
   cache: new InMemoryCache()
 });
 const root = ReactDOM.createRoot(document.getElementById('root'));
