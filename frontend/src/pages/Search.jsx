@@ -67,18 +67,20 @@ const Search = () => {
      })
         
     return navigate('/')
-
   }
-  const mystyle={
-    backgroundImage: `url(${background})`,
+
+  const mystyle = {
+    backgroundImage: `url(${background})`, // Corrected syntax
     backgroundSize: "cover",
+    backdropFilter: "blur(6px)",
+    backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     height: "100vh",
-    opacity: '0.8',
-    minWidth: "2400px", 
     width: "100%",
-    
-   };
+    opacity: 0.8,
+  };
+  
+
   return (
     <div className='topmargin'>
     <ToastContainer />

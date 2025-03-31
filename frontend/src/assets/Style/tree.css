@@ -1,12 +1,13 @@
-.tree_{
+.tree_ {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center;  /* Centers the tree horizontally */
+  align-items: center;   /* Adjusts alignment */
   height: 100vh;
   width: 100vw;
-  min-width: 2400px;
-  min-height: 100vh;
+  overflow: auto;  /* Ensure it scrolls properly */
 }
+
+
 .tree_ ul {
   padding-top: 20px; 
   position: relative;

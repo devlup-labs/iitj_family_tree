@@ -1,7 +1,10 @@
 .home{
   filter: blur(10px);
+  width: 100%;
+  height: 100vh;
   position: relative;
  }
+
  .typewriterStyle{
   position: absolute;
 top: 4%;
