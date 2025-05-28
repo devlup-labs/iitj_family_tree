@@ -146,14 +146,14 @@ const Navbar = ({ error }) => {
               Home
             </NavLink>
           </div>
-          <div className="treeD">
+          {/* <div className="treeD">
             <NavLink
               to="/ImageTree"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               ImageTree
             </NavLink>
-          </div>
+          </div> */}
           
           {!isMobile && <><div className="header_search">
             <input
