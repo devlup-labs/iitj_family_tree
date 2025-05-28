@@ -61,7 +61,7 @@ function App() {
   // if (loading) return <p>Loading...</p>;
 
   return (
-    <BrowserRouter basename="/familytree/">
+    <BrowserRouter>
       <DataProvider>
         <ToastContainer />
         <Navbar error={error} />

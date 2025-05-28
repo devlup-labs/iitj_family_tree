@@ -117,27 +117,27 @@ const TwoDTree = ({ data }) => {
     strokeWidth: 10,
   });
 
-  const handleNodeMouseOver = (nodeDatum, event) => {
-    if (nodeDatum.name !== 'All') {
-      setroll(nodeDatum)
-      setShowModal(true)
+  // const handleNodeMouseOver = (nodeDatum, event) => {
+  //   if (nodeDatum.name !== 'All') {
+  //     setroll(nodeDatum)
+  //     setShowModal(true)
 
-    }
-  };
-  const handleNodeMouseOut = (nodeData, event) => {
-    if (nodeData.name !== 'All') {
-      setShowModal(false)
-    }
-  };
+  //   }
+  // };
+  // const handleNodeMouseOut = (nodeData, event) => {
+  //   if (nodeData.name !== 'All') {
+  //     setShowModal(false)
+  //   }
+  // };
   // const dimensions = {
   //   width: 800,
   //   height: 600
   // };
   
-  const dimensions = {
-    width: window.innerWidth,  // Full screen width
-    height: window.innerHeight // Full screen height
-  };
+  // const dimensions = {
+  //   width: window.innerWidth,  // Full screen width
+  //   height: window.innerHeight // Full screen height
+  // };
   
   <Tree 
     data={new_data}
